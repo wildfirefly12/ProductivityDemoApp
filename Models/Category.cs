@@ -1,4 +1,6 @@
-﻿namespace Productivity.Models
+﻿using Productivity.Dtos;
+
+namespace Productivity.Models
 {
     public class Category
     {
@@ -9,5 +11,16 @@
         public ApplicationUser User { get; set; }
         public ICollection<Note> Notes { get; set; }
         public ICollection<List> Lists { get; set; }
+
+        public Category()
+        {
+        }
+
+        public Category(CategoryDto categoryDto)
+        {
+            Description = categoryDto.Description;
+            Color = categoryDto.Color;
+            UserId = categoryDto.UserId;
+        }
     }
 }

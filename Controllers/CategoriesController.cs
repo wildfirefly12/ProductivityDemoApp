@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
+using Productivity.Dtos;
 using Productivity.Models;
+using Task = Productivity.Models.Task;
 
 namespace Productivity.Controllers
 {
@@ -23,6 +25,49 @@ namespace Productivity.Controllers
                 .ToListAsync();
 
             return categories;
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Create(CategoryDto categoryDto)
+        {
+            Category category = new Category(categoryDto);
+
+            await _context.Categories.AddAsync(category);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Update(CategoryDto categoryDto)
+        {
+            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryDto.Id);
+
+            if (category.UserId == categoryDto.UserId)
+            {
+                category.Description = categoryDto.Description;
+                category.Color = categoryDto.Color;
+
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest("Category cannot be edited.");
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> Delete(CategoryDto categoryDto)
+        {
+            Category category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == categoryDto.Id);
+
+            if (category.UserId == categoryDto.UserId)
+            {
+                _context.Remove(category);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+
+            return BadRequest("Category cannot be deleted.");
         }
     }
 }
