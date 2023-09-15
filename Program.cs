@@ -1,14 +1,16 @@
+using dotenv.net;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
 using Productivity.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
+DotEnv.Load();
+var connectionString = Environment.GetEnvironmentVariable("DEFAULTCONNECTION");
+
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseMySql(connectionString,
         new MySqlServerVersion(new Version(1, 0, 0))));
