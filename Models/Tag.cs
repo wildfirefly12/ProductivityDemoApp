@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Productivity.Dtos;
 
 namespace Productivity.Models
 {
@@ -12,5 +13,16 @@ namespace Productivity.Models
         [JsonIgnore] public ICollection<Task> Tasks { get; set; }
         [JsonIgnore] public ICollection<Note> Notes { get; set; }
         [JsonIgnore] public ICollection<List> Lists { get; set; }
+
+        public Tag()
+        {
+        }
+
+        public Tag(TagDto tagDto)
+        {
+            Description = tagDto.Description;
+            Color = tagDto.Color;
+            UserId = tagDto.UserId;
+        }
     }
 }
