@@ -1,4 +1,6 @@
 ﻿using System.Text.Json.Serialization;
+using Microsoft.JSInterop;
+using Productivity.Dtos;
 using Productivity.Enums;
 
 namespace Productivity.Models
@@ -16,5 +18,20 @@ namespace Productivity.Models
         public ApplicationUser User { get; set; }
         [JsonIgnore]
         public ICollection<Tag> Tags { get; set; }
+
+        public Task()
+        {
+        }
+
+        public Task(TaskDto taskDto)
+        {
+            Title = taskDto.Title;
+            Description = taskDto.Description;
+            DueDate = taskDto.DueDate;
+            Priority = taskDto.Priority;
+            IsRecurring = taskDto.IsRecurring;
+            IsComplete = taskDto.IsComplete;
+            UserId = taskDto.Title;
+        }
     }
 }
