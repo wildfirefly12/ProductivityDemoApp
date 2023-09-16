@@ -1,6 +1,43 @@
-﻿namespace Productivity.Controllers;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Productivity.Data;
+using Productivity.Models;
 
-public class ListsController
+namespace Productivity.Controllers;
+
+public class ListsController : BaseApiController
 {
-    
+    private ApplicationDbContext _context;
+
+    public ListsController(ApplicationDbContext context)
+    {
+        _context = context;
+    }
+
+
+    [HttpGet]
+    public async Task<ActionResult<List<List>>> ByUser(string id)
+    {
+        List<List> lists = await _context.Lists
+            .Where(l => l.UserId == id)
+            .ToListAsync();
+
+        return lists;
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<List<List>>> ByCategory(long id)
+    {
+        List<List> lists = await _context.Lists
+            .Where(l => l.CategoryId == id)
+            .ToListAsync();
+
+        return lists;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Create()
+    {
+        return Ok();
+    }
 }
