@@ -1,4 +1,6 @@
-﻿namespace Productivity.Models
+﻿using Productivity.Dtos;
+
+namespace Productivity.Models
 {
 
     public class ListItem
@@ -8,5 +10,16 @@
         public bool IsChecked { get; set; }
         public long ListId { get; set; }
         public List List { get; set; }
+
+        public ListItem()
+        {
+        }
+
+        public ListItem(ListItemDto itemDto)
+        {
+            Description = itemDto.Description;
+            IsChecked = false;
+            ListId = itemDto.ListId;
+        }
     }
 }

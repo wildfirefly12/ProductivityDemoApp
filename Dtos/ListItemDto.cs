@@ -1,0 +1,9 @@
+﻿namespace Productivity.Dtos;
+
+public class ListItemDto
+{
+    public long Id { get; set; }
+    public string Description { get; set; }
+    public bool IsChecked { get; set; }
+    public long ListId { get; set; }
+}
