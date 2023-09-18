@@ -1,0 +1,16 @@
+.nav-notes-container{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.nav-notes-title {
+    display: flex;
+    flex-flow: row nowrap;
+    vertical-align: center;
+    height: 45px;
+}
+
+.navbar-notes-title-text{
+    padding: 0;
+    margin: 0 0 0 5px;
+}

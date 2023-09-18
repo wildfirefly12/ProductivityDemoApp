@@ -1,0 +1,16 @@
+.nav-lists-container{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.nav-lists-title {
+    display: flex;
+    flex-flow: row nowrap;
+    vertical-align: center;
+    height: 45px;
+}
+
+.navbar-lists-title-text{
+    padding: 0;
+    margin: 0 0 0 5px;
+}

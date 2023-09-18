@@ -1,0 +1,10 @@
+.nav-category-container{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.nav-category-color{
+    height: 20px;
+    width: 20px;
+}
+

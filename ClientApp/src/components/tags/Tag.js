@@ -2,12 +2,12 @@
 
 import React from "react";
 
-const Tag = (prop) => {
+const Tag = (props) => {
     
     
     return (
-        <div>
-            
+        <div className={"tag-container"} style={{backgroundColor: props.tag.color}}>
+            <p>{props.tag.description}</p>
         </div>
     )
 }

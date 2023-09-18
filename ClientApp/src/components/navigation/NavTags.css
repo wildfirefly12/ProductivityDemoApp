@@ -1,0 +1,16 @@
+.nav-tags-title {
+    display: flex;
+    flex-flow: row nowrap;
+    vertical-align: center;
+    height: 45px;
+}
+
+.navbar-tags-title-text{
+    padding: 0;
+    margin: 0 0 0 5px;
+}
+
+.nav-tags-container{
+    display: flex;
+    flex-flow: row wrap;
+}

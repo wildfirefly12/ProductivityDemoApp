@@ -1,0 +1,23 @@
+.nav-tasks-container{
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.nav-tasks-title {
+    display: flex;
+    flex-flow: row nowrap;
+    vertical-align: center;
+    height: 45px;
+}
+
+.navbar-task-title-text{
+    padding: 0;
+    margin: 0 0 0 5px;
+}
+
+.nav-tasks-subcategory{
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0 0 5px 5px;
+}
