@@ -1,23 +1,23 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AppRoutes from './AppRoutes';
-import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
-import { Layout } from './components/Layout';
 import './custom.css';
+import NavBar from "./components/navigation/NavBar";
 
 export default class App extends Component {
   static displayName = App.name;
 
   render() {
     return (
-      <Layout>
-        <Routes>
-          {AppRoutes.map((route, index) => {
-            const { element, requireAuth, ...rest } = route;
-            return <Route key={index} {...rest} element={requireAuth ? <AuthorizeRoute {...rest} element={element} /> : element} />;
-          })}
-        </Routes>
-      </Layout>
+        <div>
+          <NavBar/>
+          <Routes>
+{/*            {AppRoutes.map((route, index) => {
+              const { element, requireAuth, ...rest } = route;
+              return <Route key={index} {...rest} element={requireAuth ? <Route {...rest} element={element} /> : element} />;
+            })}*/}
+          </Routes>
+        </div>
     );
   }
 }

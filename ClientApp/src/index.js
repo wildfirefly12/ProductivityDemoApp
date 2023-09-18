@@ -1,3 +1,4 @@
+import 'material-icons/iconfont/material-icons.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React from 'react';
 import { createRoot } from 'react-dom/client';

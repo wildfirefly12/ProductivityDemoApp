@@ -18,7 +18,7 @@ namespace Productivity.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Category>>> CategoriesByUser(string id)
+        public async Task<ActionResult<List<Category>>> ByUser(string id)
         {
             List<Category> categories = await _context.Categories
                 .Where(category => category.UserId == id)

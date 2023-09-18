@@ -1,0 +1,19 @@
+﻿.navbar-container{
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: aliceblue;
+    border-radius: 20px;
+    width: 240px;
+    margin: 20px;
+    padding: 20px;
+    height: calc(100vh - 80px);
+    font-family: "Passion One", sans-serif;
+    font-size: 32px;
+}
+
+.navbar-dashboard-link{
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: center;
+    height: 20px;
+}
