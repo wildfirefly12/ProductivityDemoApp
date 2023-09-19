@@ -15,7 +15,7 @@ const NavTasks = (props) => {
                 <p className={"navbar-task-title-text"}>Tasks</p>
             </div>
             <Divider color={"darkgray"} sx={{marginBottom: "5px"}}/>
-            <Link className={"navbar-link"} to={""}>
+            <Link className={"navbar-link"} to={"/tasks/today"}>
                 <p className={"nav-tasks-subcategory"}>Today</p>
             </Link>
             <Link className={"navbar-link"} to={""}>

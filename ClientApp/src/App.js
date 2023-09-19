@@ -1,23 +1,35 @@
 import React, { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
 import './custom.css';
+import Tasks from "./components/tasks/Tasks";
 import NavBar from "./components/navigation/NavBar";
+import {createTheme, ThemeProvider} from "@mui/material";
 
 export default class App extends Component {
-  static displayName = App.name;
+    static displayName = App.name;
+       
+    render() {
 
-  render() {
-    return (
-        <div>
-          <NavBar/>
-          <Routes>
-{/*            {AppRoutes.map((route, index) => {
-              const { element, requireAuth, ...rest } = route;
-              return <Route key={index} {...rest} element={requireAuth ? <Route {...rest} element={element} /> : element} />;
-            })}*/}
-          </Routes>
-        </div>
-    );
-  }
+        const theme = createTheme({
+            palette: {
+                primary: {
+                    main: "#C0CBA5"
+                },
+                secondary: {
+                    main: "#FFCCAA"
+                }
+            }
+        })
+
+        return (
+            <ThemeProvider theme={theme}>
+                <div className={"app-container"}>
+                    <NavBar/>
+                    <Routes>
+                        <Route path={"tasks/:type"} element={<Tasks />} />
+                    </Routes>
+                </div>
+            </ThemeProvider>
+        );
+    }
 }

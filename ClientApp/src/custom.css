@@ -1,16 +1,15 @@
 /* Provide sufficient contrast against white background */
 @import url('https://fonts.googleapis.com/css2?family=Passion+One:wght@400;700;900&display=swap');
 
-a {
-  color: #0366d6;
+body{
+  background-color: #C0CBA5;
+  padding: 50px 50px 50px 50px;
 }
 
-code {
-  color: #E01A76;
-}
-
-.btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+.app-container{
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-flow: row nowrap;
 }
