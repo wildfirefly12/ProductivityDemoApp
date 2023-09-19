@@ -1,0 +1,15 @@
+﻿.new-task-container{
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 6px slategray;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.new-task-add-tag{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: center;
+}
