@@ -1,8 +1,12 @@
+using System.Text;
 using dotenv.net;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Productivity.Data;
 using Productivity.Models;
+using Productivity.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,11 +26,27 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddIdentityServer()
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
-
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("UDH6p7nOukKdUOE47PntxgAQzpVDn6gQrEVxyxSJ"));
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(opt =>
+    {
+        opt.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.Zero
+        };
+    })
+    .AddIdentityServerJwt();
+
+builder.Services.AddScoped<TokenService>();
 
 var app = builder.Build();
 

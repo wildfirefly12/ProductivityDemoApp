@@ -27,7 +27,7 @@ namespace Productivity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(TaskDto taskDto)
+        public async Task<ActionResult> Create([FromBody] TaskDto taskDto)
         {
             Models.Task task = new Models.Task(taskDto);
 

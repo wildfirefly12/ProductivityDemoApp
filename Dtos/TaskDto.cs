@@ -1,4 +1,5 @@
 ﻿using Productivity.Enums;
+using Productivity.Models;
 
 namespace Productivity.Dtos;
 
@@ -12,4 +13,5 @@ public class TaskDto
     public bool IsRecurring { get; set; }
     public bool IsComplete { get; set; }
     public string UserId { get; set; }
+    public List<Tag> Tags { get; set; }
 }

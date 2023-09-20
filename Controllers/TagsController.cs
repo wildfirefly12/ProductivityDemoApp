@@ -63,7 +63,7 @@ public class TagsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult> Create(TagDto tagDto)
+    public async Task<ActionResult> Create([FromBody] TagDto tagDto)
     {
         Tag tag = new Tag(tagDto);
 

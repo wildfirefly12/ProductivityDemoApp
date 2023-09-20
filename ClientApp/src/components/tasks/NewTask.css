@@ -7,9 +7,14 @@
     padding: 20px;
 }
 
-.new-task-add-tag{
+.tasks-tags-container{
     display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
+    flex-flow: row nowrap;
     align-items: center;
+}
+
+.tasks-color-picker-container{
+    width: 200px;
+    height: 200px;
+    background-color: whitesmoke;
 }

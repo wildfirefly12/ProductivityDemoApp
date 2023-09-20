@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 import { AddBox } from "@mui/icons-material";
 import NewTask from "./NewTask";
 
-const Tasks = () => {   
+const Tasks = (props) => {   
     const { type } = useParams();
     
     const [newTaskOpen, setNewTaskOpen] = useState(false);
@@ -24,7 +24,7 @@ const Tasks = () => {
                 <h2>Tasks - {type.slice(0, 1).toUpperCase() + type.slice(1)}</h2>
                 <AddBox className={"tasks-add-btn"} fontSize={"large"} color={"secondary"} onClick={handleOpenNewTask}/>
             </div>
-            {newTaskOpen && <NewTask handleCloseNewTask={handleCloseNewTask}/>}
+            {newTaskOpen && <NewTask id={props.id} handleCloseNewTask={handleCloseNewTask}/>}
         </div>
     )
 }
