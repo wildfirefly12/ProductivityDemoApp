@@ -31,7 +31,7 @@ namespace Productivity.Models
             Priority = taskDto.Priority;
             IsRecurring = taskDto.IsRecurring;
             IsComplete = taskDto.IsComplete;
-            UserId = taskDto.Title;
+            UserId = taskDto.UserId;
         }
     }
 }

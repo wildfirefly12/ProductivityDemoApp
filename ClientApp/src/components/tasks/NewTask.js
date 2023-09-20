@@ -71,7 +71,7 @@ const NewTask = (props) => {
     }
     
     const handleSetDescription = (event) => {
-        setDescription(event.target.data);
+        setDescription(event.target.value);
     }
     
     const handleSetIsRecurring = (event) => {
@@ -91,6 +91,7 @@ const NewTask = (props) => {
         axios.post("api/Tasks/Create", task, props.config)
             .then(response => {
                 console.log(response);
+                props.handleCloseNewTask();
             }).catch(error => {
                 console.log(error);
         })
@@ -106,7 +107,7 @@ const NewTask = (props) => {
                 <MenuItem value={1}>Medium</MenuItem>
                 <MenuItem value={0}>High</MenuItem>
             </Select>
-            <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Description"} multiline maxRows={6} onChange={handleSetDescription}/>
+            <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Description"} multiline rows={6} onChange={handleSetDescription}/>
             <FormControlLabel control={<Checkbox sx={{marginLeft: "10px"}} size={"small"}  />} label={"Recurring"} onChange={handleSetIsRecurring}/>
             <div className={"tasks-tags-container"}>
                 <Autocomplete
