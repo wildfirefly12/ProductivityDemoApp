@@ -1,4 +1,7 @@
 ﻿.new-task-container{
+    position: absolute;
+    top: 20%;
+    left: 35%;
     display: flex;
     flex-flow: column nowrap;
     background-color: whitesmoke;
