@@ -1,0 +1,23 @@
+﻿.tasks-list-container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding: 15px;
+    height: 100%;
+    width: 45%;
+    min-width: 300px;
+    border-radius: 15px;
+    border: 1px solid darkgray;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.tasks-list-container::-webkit-scrollbar{
+    background-color: transparent;
+    width: 10px;
+}
+
+.tasks-list-container::-webkit-scrollbar-thumb{
+    background-color: lightgray;
+    border-radius: 10px;
+}

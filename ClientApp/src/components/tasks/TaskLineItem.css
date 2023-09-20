@@ -1,0 +1,13 @@
+﻿.task-line-item-container{
+    display: flex;
+    flex-flow: row nowrap;
+    border-radius: 10px;
+}
+
+.task-line-item-title{
+    
+}
+
+.task-tag{
+    justify-self: flex-end;
+}
