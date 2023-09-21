@@ -16,6 +16,12 @@
     width: 100%;
 }
 
+.tasks-sections-container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
 .tasks-add-btn:hover{
     cursor: pointer;
 }

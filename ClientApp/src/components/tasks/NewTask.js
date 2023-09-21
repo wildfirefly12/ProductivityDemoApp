@@ -6,6 +6,9 @@ import {Close} from "@mui/icons-material";
 import axios from "axios";
 import {TagDto} from "../../dtos/TagDto";
 import {TaskDto} from "../../dtos/TaskDto";
+import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {Dayjs} from "dayjs";
 
 const NewTask = (props) => {
     
@@ -62,9 +65,6 @@ const NewTask = (props) => {
     const handleSetTitle = (event) => {
         setTitle(event.target.value);
     }
-    const handleSetDueDate = (event) => {
-        setDueDate(event.target.value);
-    }
     
     const handleSetPriority = (event) => {
         setPriority(event.target.value)
@@ -101,7 +101,9 @@ const NewTask = (props) => {
         <div className={"new-task-container"}>
             <Close sx={{alignSelf: "flex-end", marginBottom: "5px"}} onClick={props.handleCloseNewTask}/>
             <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"} onChange={handleSetTitle}/>
-            <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Due Date"} type={"date"} onChange={handleSetDueDate}/>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DateTimePicker  sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Due Date"} value={dueDate} onChange={(newValue) => setDueDate(newValue)}/>
+            </LocalizationProvider>
             <Select sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"} onChange={handleSetPriority}>
                 <MenuItem value={2}>Low</MenuItem>
                 <MenuItem value={1}>Medium</MenuItem>

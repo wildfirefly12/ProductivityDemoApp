@@ -1,0 +1,35 @@
+﻿.tasks-details-container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    padding: 15px;
+    height: 100%;
+    width: 48%;
+    min-width: 300px;
+    border-radius: 15px;
+    border: 1px solid darkgray;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.tasks-details-date{
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.tasks-details-priority-container{
+    padding: 5px;
+    margin: 5px;
+    height: 25px;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.tasks-details-priority-text{
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 14px;
+    margin: 0;
+    vertical-align: center;
+    padding: 0 5px;
+    line-height: 15px;
+}
