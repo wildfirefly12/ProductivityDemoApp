@@ -1,5 +1,6 @@
 ﻿export class TaskDto {
-    constructor(title, description, dueDate, priority, isRecurring, isComplete, userId){
+    constructor(id, title, description, dueDate, priority, isRecurring, isComplete, userId, tags){
+        this.id = id || null;
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
@@ -7,5 +8,6 @@
         this.isRecurring = isRecurring;
         this.isComplete = isComplete;
         this.userId = userId;
+        this.tags = tags || null;
     }
 }

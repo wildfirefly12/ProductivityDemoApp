@@ -9,6 +9,7 @@ import {TaskDto} from "../../dtos/TaskDto";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import {Dayjs} from "dayjs";
+import Tag from "../tags/Tag";
 
 const NewTask = (props) => {
     
@@ -43,11 +44,11 @@ const NewTask = (props) => {
     }
     
     const handleCreateNewTag = () => {
-        const tag = new TagDto(newTag, color, props.id);
-        
-        axios.post("api/Tags/Create", tag, props.config)
+        let value = new TagDto(null, newTag, "#E3E3E3", props.id);
+        axios.post("api/Tags/Create", value, props.config)
             .then(response => {
                 console.log(response);
+                setTags([value, ...tags]);
                 handleSetUpdated();
             }).catch(error => {
                 console.log(error);
@@ -80,13 +81,24 @@ const NewTask = (props) => {
     
     const handleSetTag = (event, value) => {
         setTag(value);
-        if(value.color != null){
-            setColor(value.color)
+    }
+    
+    const handleSetTags = () => {
+        if(existingTags.some(t => t.id === tag.id)){
+            console.log("addTag")
+            setTags([tag, ...tags]);
+        } else{
+            handleCreateNewTag();
         }
     }
     
     const handleCreateNewTask = () => {
-        const task = new TaskDto(title, description, dueDate, priority, isRecurring, false, props.id);
+        let task;
+        if(tags.length > 0){
+            task = new TaskDto(null, title, description, dueDate, priority, isRecurring, false, props.id, tags);
+        } else {
+            task = new TaskDto(null, title, description, dueDate, priority, isRecurring, false, props.id);
+        }
         
         axios.post("api/Tasks/Create", task, props.config)
             .then(response => {
@@ -111,7 +123,7 @@ const NewTask = (props) => {
             </Select>
             <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Description"} multiline rows={6} onChange={handleSetDescription}/>
             <FormControlLabel control={<Checkbox sx={{marginLeft: "10px"}} size={"small"}  />} label={"Recurring"} onChange={handleSetIsRecurring}/>
-            <div className={"tasks-tags-container"}>
+            <div className={"tasks-tags-autocomplete-container"}>
                 <Autocomplete
                     freeSolo
                     onChange={handleSetTag}
@@ -122,9 +134,14 @@ const NewTask = (props) => {
                     sx={{ width: 300 }}
                     renderInput={(params) => <TextField {...params} label="Tag" size={"small"} sx={{margin: "10px"}} onChange={handleSetNewTag}/>}
                 />
-                <TextField sx={{marginLeft: "20px", width: "50px"}} size={"small"} variant={"outlined"} label={"Color"}
-                            type={"color"} onChange={handleSetColor} value={color}/>
-                <Button sx={{width: "120px", alignSelf: "center", marginLeft: "20px"}} variant={"contained"} color={"secondary"} onClick={handleCreateNewTag}>Add Tag</Button>
+{/*                <TextField sx={{marginLeft: "20px", width: "50px"}} size={"small"} variant={"outlined"} label={"Color"}
+                            type={"color"} onChange={handleSetColor} value={color}/>*/}
+                <Button sx={{width: "120px", alignSelf: "center", marginLeft: "20px"}} variant={"contained"} color={"secondary"} onClick={handleSetTags}>Add Tag</Button>
+            </div>
+            <div className={"new-task-tags-container"}>
+                {tags && tags.map(tag => 
+                    <Tag tag={tag} />
+                )}
             </div>
             <Button sx={{width: "120px", alignSelf: "flex-end"}} variant={"contained"} color={"secondary"} onClick={handleCreateNewTask}>Add Task</Button>
         </div>

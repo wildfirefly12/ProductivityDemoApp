@@ -12,7 +12,7 @@ const TaskDetails = (props) => {
         },
         {
             text: "Medium",
-            color: "#e3c342"
+            color: "#ffcc54"
         },
         {
             text: "Low",
@@ -23,7 +23,7 @@ const TaskDetails = (props) => {
     return (
         <div className={"tasks-details-container"}>
             {props.task && <>
-                <p>{props.task.name}</p>
+                <p className={"tasks-details-title"}>{props.task.title}</p>
                 <div className={"tasks-details-date"}>
                     <Event/>
                     <p>{new Date(props.task.dueDate).toLocaleString()}</p>

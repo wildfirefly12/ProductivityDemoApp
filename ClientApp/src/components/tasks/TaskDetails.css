@@ -12,6 +12,12 @@
     overflow-y: auto;
 }
 
+.tasks-details-title{
+    font-family: "Passion One", sans-serif;
+    font-size: 24px;
+    
+}
+
 .tasks-details-date{
     display: flex;
     flex-flow: row nowrap;

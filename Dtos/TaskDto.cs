@@ -5,7 +5,7 @@ namespace Productivity.Dtos;
 
 public class TaskDto
 {
-    public long Id { get; set; }
+    public long? Id { get; set; }
     public string Title { get; set; }
     public string Description { get; set; }
     public DateTime DueDate { get; set; }
@@ -13,5 +13,5 @@ public class TaskDto
     public bool IsRecurring { get; set; }
     public bool IsComplete { get; set; }
     public string UserId { get; set; }
-    public List<Tag> Tags { get; set; }
+    public List<Tag>? Tags { get; set; }
 }

@@ -8,8 +8,8 @@ const TasksSection = (props) => {
     return (
         <div className={"tasks-section-container"}>
             <p className={"tasks-section-header"}>{props.header}</p>
-            {props.tasks.map((task, i) =>
-                <TaskLineItem key={i} task={task} selected={props.selected === task} handleSetSelected={props.handleSetSelected} />
+            {props.tasks.map(task =>
+                <TaskLineItem key={task.id} task={task} selected={props.selected === task} handleSetSelected={props.handleSetSelected} handleUpdate={props.handleUpdate} config={props.config} />
             )}
         </div>
     )

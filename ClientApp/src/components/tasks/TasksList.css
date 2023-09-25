@@ -10,6 +10,7 @@
     border: 1px solid darkgray;
     overflow: hidden;
     overflow-y: auto;
+    margin-right: 20px;
 }
 
 .tasks-list-container::-webkit-scrollbar{

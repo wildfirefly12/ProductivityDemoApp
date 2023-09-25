@@ -9,6 +9,12 @@ import TaskDetails from "./TaskDetails";
 
 const Tasks = (props) => {   
     const { type } = useParams();
+
+    const [updated, setUpdated] = useState(0);
+
+    const handleUpdate = () => {
+        setUpdated(updated + 1);
+    }
     
     const [newTaskOpen, setNewTaskOpen] = useState(false);
     
@@ -18,6 +24,7 @@ const Tasks = (props) => {
     
     const handleCloseNewTask = ()=> {
         setNewTaskOpen(false);
+        handleUpdate()
     }
 
     const [selected, setSelected] = useState(null);
@@ -33,7 +40,7 @@ const Tasks = (props) => {
                 <AddBox className={"tasks-add-btn"} fontSize={"large"} color={"secondary"} onClick={handleOpenNewTask}/>
             </div>
             <div className={"tasks-sections-container"}>
-                <TasksList id={props.id} selected={selected} handleSetSelected={handleSetSelected}/>
+                <TasksList id={props.id} type={type} selected={selected} handleSetSelected={handleSetSelected} updated={updated} handleUpdate={handleUpdate}/>
                 <TaskDetails task={selected}/>
             </div>
             {newTaskOpen && <NewTask id={props.id} handleCloseNewTask={handleCloseNewTask}/>}

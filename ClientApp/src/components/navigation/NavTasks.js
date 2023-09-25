@@ -18,16 +18,16 @@ const NavTasks = (props) => {
             <Link className={"navbar-link"} to={"/tasks/today"}>
                 <p className={"nav-tasks-subcategory"}>Today</p>
             </Link>
-            <Link className={"navbar-link"} to={""}>
+            <Link className={"navbar-link"} to={"/tasks/pending"}>
                 <p className={"nav-tasks-subcategory"}>Pending</p>
             </Link>
-            <Link className={"navbar-link"} to={""}>
+            <Link className={"navbar-link"} to={"/tasks/overdue"}>
                 <p className={"nav-tasks-subcategory"}>Overdue</p>
             </Link>
-            <Link className={"navbar-link"} to={""}>
+            <Link className={"navbar-link"} to={"/tasks/completed"}>
                 <p className={"nav-tasks-subcategory"}>Completed</p>
             </Link>
-            <Link className={"navbar-link"} to={""}>
+            <Link className={"navbar-link"} to={"/tasks/recurring"}>
                 <p className={"nav-tasks-subcategory"}>Recurring</p>
             </Link>
         </div>

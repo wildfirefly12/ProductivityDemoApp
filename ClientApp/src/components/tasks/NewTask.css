@@ -10,7 +10,7 @@
     padding: 20px;
 }
 
-.tasks-tags-container{
+.tasks-tags-autocomplete-container{
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -20,4 +20,8 @@
     width: 200px;
     height: 200px;
     background-color: whitesmoke;
+}
+
+.new-task-tags-container{
+    
 }

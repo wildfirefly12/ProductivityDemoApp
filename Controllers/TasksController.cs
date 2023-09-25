@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
 using Productivity.Dtos;
+using Task = Productivity.Models.Task;
 
 namespace Productivity.Controllers
 {
@@ -26,6 +27,50 @@ namespace Productivity.Controllers
             return tasks;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Models.Task>>> ByType(string id, string type)
+        {
+            List<Models.Task> tasks = new List<Task>();
+            
+            switch (type)
+            {
+                case "today":
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id && t.DueDate.Date == DateTime.Today && !t.IsComplete)
+                        .ToListAsync();
+                    break;
+                case "pending":
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id && !t.IsComplete)
+                        .ToListAsync();
+                    break;
+                case "overdue":
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id && t.DueDate.Date < DateTime.Today && !t.IsComplete)
+                        .ToListAsync();
+                    break;
+                case "completed":
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id && t.IsComplete)
+                        .ToListAsync();
+                    break;
+                case "recurring":
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id && t.IsRecurring && !t.IsComplete)
+                        .ToListAsync();
+                    break;
+                default:
+                    tasks = await _context.Tasks
+                        .Where(t => t.UserId == id)
+                        .ToListAsync();
+                    break;
+            }
+            
+            
+
+            return tasks;
+        }
+
         [HttpPost]
         public async Task<ActionResult> Create([FromBody] TaskDto taskDto)
         {
@@ -38,7 +83,7 @@ namespace Productivity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(TaskDto taskDto)
+        public async Task<ActionResult> Edit([FromBody] TaskDto taskDto)
         {
             Models.Task task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskDto.Id);
 
@@ -49,11 +94,13 @@ namespace Productivity.Controllers
             task.IsRecurring = taskDto.IsRecurring;
             task.IsComplete = taskDto.IsComplete;
 
+            await _context.SaveChangesAsync();
+
             return Ok();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete(long id)
+        public async Task<ActionResult> Delete([FromBody] long id)
         {
             Models.Task task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
 
