@@ -107,6 +107,22 @@ namespace Productivity.Controllers
             task.IsRecurring = taskDto.IsRecurring;
             task.IsComplete = taskDto.IsComplete;
 
+            if (taskDto.Tags != null)
+            {
+                if (task.Tags == null)
+                {
+                    task.Tags = new List<Tag>();
+                }
+            }
+            
+            foreach (var tag in taskDto.Tags)
+            {
+                if (!task.Tags.Contains(tag))
+                {
+                    task.Tags.Add(tag);
+                }
+            }
+
             await _context.SaveChangesAsync();
 
             return Ok();

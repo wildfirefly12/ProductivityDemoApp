@@ -79,7 +79,7 @@ const NewTask = (props) => {
     }
     
     const handleSetTags = () => {
-        if(existingTags.some(t => t.id === tag.id)){
+        if(tag != null && existingTags.some(t => t.id === tag.id)){
             console.log("addTag")
             setTags([tag, ...tags]);
         } else{
