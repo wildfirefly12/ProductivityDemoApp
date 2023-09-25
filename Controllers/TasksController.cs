@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Duende.IdentityServer.Services.KeyManagement;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
 using Productivity.Dtos;
+using Productivity.Models;
 using Task = Productivity.Models.Task;
 
 namespace Productivity.Controllers
@@ -76,6 +78,11 @@ namespace Productivity.Controllers
         {
             Models.Task task = new Models.Task(taskDto);
 
+            foreach (var tag in task.Tags)
+            {
+                _context.Set<Tag>().Attach(tag);
+            }
+            
             await _context.Tasks.AddAsync(task);
             await _context.SaveChangesAsync();
 

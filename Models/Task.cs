@@ -32,6 +32,10 @@ namespace Productivity.Models
             IsRecurring = taskDto.IsRecurring;
             IsComplete = taskDto.IsComplete;
             UserId = taskDto.UserId;
+            if (taskDto.Tags.Count > 0)
+            {
+                Tags = taskDto.Tags;
+            }
         }
     }
 }
