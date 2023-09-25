@@ -56,7 +56,7 @@ const App = () =>  {
             {user ? <div className={"app-container"}>
                 <NavBar/>
                 <Routes>
-                    <Route path={"tasks/:type"} element={<Tasks id={user.id}/>}/>
+                    <Route path={"tasks/:type"} element={<Tasks id={user.id} config={config}/>}/>
                 </Routes>
             </div> :
             <Login config={config} handleSetUser={handleSetUser} history={history}/>}

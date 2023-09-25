@@ -28,6 +28,8 @@ const TaskDetails = (props) => {
         setIsEditing(value);
     }
     
+    
+    
     return (
         <div className={"tasks-details-container"}>
             {props.task && <>
@@ -48,7 +50,7 @@ const TaskDetails = (props) => {
                 </div>
                 <div className={"tasks-details-tags-container"}>
                     {props.task.tags && props.task.tags.map(t => 
-                        <Tag key={t.id} tag={t} />
+                        <Tag key={t.id} tag={t} taskId={props.task.id} config={props.config} handleUpdate={props.handleUpdate} handleSetSelected={props.handleSetSelected}/>
                         )}
                 </div>
             </>}

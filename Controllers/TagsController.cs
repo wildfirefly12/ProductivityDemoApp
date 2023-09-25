@@ -136,4 +136,58 @@ public class TagsController : BaseApiController
 
         return Ok();
     }
+
+    [HttpPost]
+    public async Task<ActionResult> RemoveFromObject(IFormCollection data)
+    {
+        long tagId;
+        long.TryParse(data["tagId"], out tagId);
+        long taskId;
+        long.TryParse(data["taskId"], out taskId);
+        long noteId;
+        long.TryParse(data["noteId"], out noteId);
+        long listId;
+        long.TryParse(data["listId"], out listId);
+        
+        
+        Tag tag = await _context.Tags
+            .Include(t => t.Tasks)
+            .Include(t => t.Notes)
+            .Include(t => t.Lists)
+            .FirstOrDefaultAsync(t => t.Id == tagId);
+
+        if (taskId != 0)
+        {
+            Models.Task task = await _context.Tasks
+                .Include(t => t.Tags)
+                .FirstOrDefaultAsync(t => t.Id == taskId);
+
+            task.Tags.Remove(tag);
+            tag.Tasks.Remove(task);
+        }
+
+        if (noteId != 0)
+        {
+            Note note = await _context.Notes
+                .Include(n => n.Tags)
+                .FirstOrDefaultAsync(n => n.Id == noteId);
+            
+            note.Tags.Remove(tag);
+            tag.Notes.Remove(note);
+        }
+
+        if (listId != 0)
+        {
+            List list = await _context.Lists
+                .Include(l => l.Tags)
+                .FirstOrDefaultAsync(l => l.Id == listId);
+            
+            list.Tags.Remove(tag);
+            tag.Lists.Remove(list);
+        }
+        
+        await _context.SaveChangesAsync();
+
+        return Ok();
+    }
 }

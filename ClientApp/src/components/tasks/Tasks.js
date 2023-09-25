@@ -41,7 +41,7 @@ const Tasks = (props) => {
             </div>
             <div className={"tasks-sections-container"}>
                 <TasksList id={props.id} type={type} selected={selected} handleSetSelected={handleSetSelected} updated={updated} handleUpdate={handleUpdate}/>
-                <TaskDetails id={props.id} task={selected} handleUpdate={handleUpdate} handleSetSelected={handleSetSelected}/>
+                <TaskDetails id={props.id} task={selected} handleUpdate={handleUpdate} handleSetSelected={handleSetSelected} config={props.config}/>
             </div>
             {newTaskOpen && <NewTask id={props.id} handleCloseNewTask={handleCloseNewTask}/>}
         </div>
