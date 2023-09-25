@@ -1,7 +1,7 @@
 ﻿.tasks-details-container{
     display: flex;
     flex-flow: column nowrap;
-    justify-content: flex-start;
+    justify-content: space-between;
     padding: 15px;
     height: 100%;
     width: 48%;
@@ -12,10 +12,17 @@
     overflow-y: auto;
 }
 
+.tasks-details-info-container{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
 .tasks-details-title{
+    display: flex;
+    justify-content: space-between;
     font-family: "Passion One", sans-serif;
     font-size: 24px;
-    
 }
 
 .tasks-details-date{
@@ -38,4 +45,11 @@
     vertical-align: center;
     padding: 0 5px;
     line-height: 15px;
+}
+
+.tasks-details-tags-container{
+    display: flex;
+    flex-flow: row wrap;
+    align-self: flex-start;
+    justify-self: flex-end;
 }

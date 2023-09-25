@@ -38,31 +38,37 @@ namespace Productivity.Controllers
             {
                 case "today":
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id && t.DueDate.Date == DateTime.Today && !t.IsComplete)
                         .ToListAsync();
                     break;
                 case "pending":
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id && !t.IsComplete)
                         .ToListAsync();
                     break;
                 case "overdue":
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id && t.DueDate.Date < DateTime.Today && !t.IsComplete)
                         .ToListAsync();
                     break;
                 case "completed":
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id && t.IsComplete)
                         .ToListAsync();
                     break;
                 case "recurring":
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id && t.IsRecurring && !t.IsComplete)
                         .ToListAsync();
                     break;
                 default:
                     tasks = await _context.Tasks
+                        .Include(t => t.Tags)
                         .Where(t => t.UserId == id)
                         .ToListAsync();
                     break;

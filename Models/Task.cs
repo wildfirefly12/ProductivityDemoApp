@@ -16,7 +16,7 @@ namespace Productivity.Models
         public bool IsComplete { get; set; }
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
-        [JsonIgnore]
+
         public ICollection<Tag> Tags { get; set; }
 
         public Task()

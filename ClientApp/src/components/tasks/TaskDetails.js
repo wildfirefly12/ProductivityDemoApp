@@ -1,7 +1,9 @@
 ﻿import "./TaskDetails.css";
 
-import React from "react";
-import {Event} from "@mui/icons-material";
+import React, {useState} from "react";
+import {Edit, Event} from "@mui/icons-material";
+import Tag from "../tags/Tag";
+import EditTask from "./EditTask";
 
 const TaskDetails = (props) => {
     
@@ -20,20 +22,37 @@ const TaskDetails = (props) => {
         }
     ]
     
+    const [isEditing, setIsEditing] = useState(false);
+    
+    const handleSetIsEditing = (value) => {
+        setIsEditing(value);
+    }
+    
     return (
         <div className={"tasks-details-container"}>
             {props.task && <>
-                <p className={"tasks-details-title"}>{props.task.title}</p>
-                <div className={"tasks-details-date"}>
-                    <Event/>
-                    <p>{new Date(props.task.dueDate).toLocaleString()}</p>
+                <div className={"tasks-details-info-container"}>
+                    <div className={"tasks-details-title"}>
+                        <p>{props.task.title}</p>
+                        <Edit color={"secondary"} onClick={handleSetIsEditing.bind(this, true)}/>
+                    </div>
+                    <div className={"tasks-details-date"}>
+                        <Event/>
+                        <p>{new Date(props.task.dueDate).toLocaleString()}</p>
+                    </div>
+                    <div className={"tasks-details-priority-container"}
+                         style={{backgroundColor: priorities[props.task.priority].color}}>
+                        <p className={"tasks-details-priority-text"}>{priorities[props.task.priority].text}</p>
+                    </div>
+                    <p>{props.task.description}</p>
                 </div>
-                <div className={"tasks-details-priority-container"}
-                     style={{backgroundColor: priorities[props.task.priority].color}}>
-                    <p className={"tasks-details-priority-text"}>{priorities[props.task.priority].text}</p>
+                <div className={"tasks-details-tags-container"}>
+                    {props.task.tags && props.task.tags.map(t => 
+                        <Tag key={t.id} tag={t} />
+                        )}
                 </div>
-                <p>{props.task.description}</p>
             </>}
+            {isEditing && <EditTask id={props.id} task={props.task} handleSetIsEditing={handleSetIsEditing} handleUpdate={props.handleUpdate} handleSetSelected={props.handleSetSelected}/>}
         </div>
     )
 }

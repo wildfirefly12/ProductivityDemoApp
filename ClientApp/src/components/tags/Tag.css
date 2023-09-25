@@ -3,4 +3,10 @@
     font-size: 16px;
     border-radius: 5px;
     width: fit-content;
+    padding: 2px 5px;
+    margin: 5px 2px;
+}
+
+.tag-text{
+    margin: 0;
 }

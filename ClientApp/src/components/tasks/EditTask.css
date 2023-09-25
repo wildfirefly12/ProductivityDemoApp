@@ -1,0 +1,27 @@
+﻿.new-task-container{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 6px slategray;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.tasks-tags-autocomplete-container{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+.tasks-color-picker-container{
+    width: 200px;
+    height: 200px;
+    background-color: whitesmoke;
+}
+
+.new-task-tags-container{
+    
+}
