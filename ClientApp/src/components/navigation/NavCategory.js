@@ -8,7 +8,7 @@ const NavCategory = (props) => {
     return (
         <div className={"nav-category-container"}>
             <div style={{backgroundColor: props.category.color}} className={"nav-category-color"}></div>
-            <p>{props.category.title}</p>
+            <p className={"nav-category-text"}>{props.category.description}</p>
         </div>
     )
 }

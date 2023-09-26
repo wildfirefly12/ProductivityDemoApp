@@ -19,8 +19,8 @@ const NavBar = (props) => {
             </div>
             <Divider color={"darkgray"}/>
             <NavTasks />
-            <NavNotes />
-            <NavLists />
+            <NavNotes id={props.id} />
+            <NavLists id={props.id} />
             <NavTags id={props.id} />
         </div>
     )

@@ -27,8 +27,29 @@ namespace Productivity.Controllers
             return categories;
         }
 
+        [HttpGet]
+        public async Task<ActionResult<List<Category>>> ByType(string id, string type)
+        {
+            List<Category> categories = new List<Category>();
+            
+            if (type == "notes")
+            {
+                categories = await _context.Categories
+                    .Where(category => category.UserId == id && category.IsNoteCategory)
+                    .ToListAsync();
+            }
+            else
+            {
+                categories = await _context.Categories
+                    .Where(category => category.UserId == id && category.IsListCategory)
+                    .ToListAsync(); 
+            }
+
+            return categories;
+        }
+
         [HttpPost]
-        public async Task<ActionResult> Create(CategoryDto categoryDto)
+        public async Task<ActionResult> Create([FromBody] CategoryDto categoryDto)
         {
             Category category = new Category(categoryDto);
 
