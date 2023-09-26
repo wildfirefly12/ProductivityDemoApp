@@ -25,9 +25,9 @@ const Tag = (props) => {
     }
     
     return (
-        <div className={"tag-container"} style={{backgroundColor: props.tag.color}}>
-            <p className={"tag-text"}>{props.tag.description}</p>
-            <Close fontSize={"small"} onClick={handleRemoveTag} />
+        <div className={"tag-container"} style={{backgroundColor: props.tag.color}} >
+            <p className={"tag-text"} onClick={props.handleSetIsEditing.bind(this, true, props.tag)}>{props.tag.description}</p>
+            {props.taskId || props.noteId || props.listId && <Close fontSize={"small"} onClick={handleRemoveTag}/>}
         </div>
     )
 }

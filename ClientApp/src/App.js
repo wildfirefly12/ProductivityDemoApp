@@ -54,7 +54,7 @@ const App = () =>  {
     return (
         <ThemeProvider theme={theme}>
             {user ? <div className={"app-container"}>
-                <NavBar/>
+                <NavBar id={user.id}/>
                 <Routes>
                     <Route path={"tasks/:type"} element={<Tasks id={user.id} config={config}/>}/>
                 </Routes>

@@ -74,7 +74,7 @@ public class TagsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<ActionResult> Edit(TagDto tagDto)
+    public async Task<ActionResult> Edit([FromBody] TagDto tagDto)
     {
         Tag tag = await _context.Tags.FirstOrDefaultAsync(t => t.Id == tagDto.Id);
 

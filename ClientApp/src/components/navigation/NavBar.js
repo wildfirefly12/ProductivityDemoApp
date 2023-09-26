@@ -21,7 +21,7 @@ const NavBar = (props) => {
             <NavTasks />
             <NavNotes />
             <NavLists />
-            <NavTags />
+            <NavTags id={props.id} />
         </div>
     )
 }
