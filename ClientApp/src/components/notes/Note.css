@@ -1,0 +1,26 @@
+﻿.note-container{
+    padding: 10px 20px 20px 20px;
+    border-radius: 5px;
+    width: 30%;
+    min-width: 300px;
+    height: 300px;
+    margin: 10px;
+    box-shadow: 4px 4px 6px slategray;
+}
+
+.note-title{
+    font-family: "Passion One", sans-serif;
+    font-size: 24px;
+    margin: 0
+}
+
+.note-content{
+    height: 70%;
+    font-family: "Roboto Condensed", sans-serif;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 9;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

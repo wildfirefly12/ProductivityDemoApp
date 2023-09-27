@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
-using Task = Productivity.Models.Task;
 
 namespace Productivity.Controllers
 {
@@ -15,6 +14,15 @@ namespace Productivity.Controllers
         public CategoriesController(ApplicationDbContext context)
         {
             _context = context;
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<Category>> ById(long id)
+        {
+            Category category = await _context.Categories
+                .FirstOrDefaultAsync(category => category.Id == id);
+
+            return category;
         }
 
         [HttpGet]

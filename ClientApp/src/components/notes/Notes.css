@@ -1,0 +1,33 @@
+﻿.notes-container{
+    width: 100%;
+    margin-left: 20px;
+}
+
+.notes{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    width: 98%;
+    height: 93%;
+}
+
+.notes-header{
+     display: flex;
+     flex-flow: row nowrap;
+     justify-content: space-between;
+     align-content: center;
+     font-family: "Passion One", sans-serif;
+     font-size: 32px;
+     width: 98%;
+ }
+
+.notes-category-title{
+    font-family: "Passion One", sans-serif;
+    font-size: 32px;
+}
+.notes-add-btn:hover{
+     cursor: pointer;
+ }

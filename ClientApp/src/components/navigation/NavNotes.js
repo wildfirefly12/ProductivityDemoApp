@@ -6,6 +6,7 @@ import {Button, Divider} from "@mui/material";
 import NewCategory from "../categories/NewCategory";
 import axios from "axios";
 import NavCategory from "./NavCategory";
+import {Link} from "react-router-dom";
 
 const NavNotes = (props) => {
     const [isCreating, setIsCreating] = useState(false);
@@ -44,7 +45,9 @@ const NavNotes = (props) => {
             <Divider color={"darkgray"} sx={{marginBottom: "5px"}}/>
             <div className={"nav-category-categories"}>
                 {categories.map(category =>
-                    <NavCategory category={category} />
+                    <Link to={`/notes/${category.id}`} style={{textDecoration: "none"}}>
+                        <NavCategory category={category} />
+                    </Link>
                 )}
                 <div className={"nav-notes-new-category-container"}>
                     <Button

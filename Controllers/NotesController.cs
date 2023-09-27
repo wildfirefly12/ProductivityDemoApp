@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.JSInterop;
 using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
@@ -39,11 +38,12 @@ namespace Productivity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create(NoteDto noteDto)
+        public async Task<ActionResult> Create([FromBody] NoteDto noteDto)
         {
             Note note = new Note(noteDto);
 
             await _context.Notes.AddAsync(note);
+            await _context.SaveChangesAsync();
 
             return Ok();
         }

@@ -1,4 +1,4 @@
-﻿.new-task-container{
+﻿.new-note-container{
     position: absolute;
     top: 20%;
     left: 35%;
@@ -8,10 +8,4 @@
     box-shadow: 3px 3px 6px slategray;
     border-radius: 20px;
     padding: 20px;
-}
-
-.tasks-tags-autocomplete-container{
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
 }

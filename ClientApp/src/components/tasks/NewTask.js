@@ -143,7 +143,7 @@ const NewTask = (props) => {
                     <Tag tag={tag} />
                 )}
             </div>
-            <Button sx={{width: "120px", alignSelf: "flex-end"}} variant={"contained"} color={"secondary"} onClick={handleCreateNewTask}>Add Task</Button>
+            <Button sx={{width: "120px", alignSelf: "flex-end"}} variant={"contained"} color={"secondary"} onClick={handleCreateNewTask}>Save</Button>
         </div>
     )
 }
