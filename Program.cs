@@ -36,6 +36,16 @@ builder.Services.AddIdentityServer(options =>
         // don't delete keys after their retention period is over
         options.KeyManagement.DeleteRetiredKeys = false;
     })
+    .AddOperationalStore(options =>
+    {
+        options.ConfigureDbContext = builder =>
+            builder.UseMySql(connectionString,
+                new MySqlServerVersion(new Version(1, 0, 0)));
+
+        // this enables automatic token cleanup. this is optional.
+        options.EnableTokenCleanup = true;
+        options.TokenCleanupInterval = 3600; // interval in seconds (default is 3600)
+    })
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
