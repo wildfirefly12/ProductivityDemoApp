@@ -19,7 +19,7 @@ const NewNote = (props) => {
     useEffect(() => {
         axios.get("api/Tags/ByUser", {
             params : {
-                id: props.id
+                id: props.userId
             }
         }).then(response => {
             setExistingTags(response.data);
@@ -80,7 +80,7 @@ const NewNote = (props) => {
     
     const handleCreateNote = () => {
         let note;
-        if(tags.length > 0){
+        if(tags != null && tags.length > 0){
             note = new NoteDto(null, title, content, color, props.categoryId, props.userId, tags);
         } else {
             note = new NoteDto(null, title, content, color, props.categoryId, props.userId, null);

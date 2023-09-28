@@ -1,0 +1,40 @@
+﻿.note-details-container{
+    position: absolute;
+    display: flex;
+    flex-flow: column nowrap;
+    top: 35%;
+    left: 40%;
+    padding: 10px 20px 20px 20px;
+    border-radius: 5px;
+    width: 30%;
+    min-width: 400px;
+    min-height: 400px;
+    max-height: 90%;
+    margin: 10px;
+    box-shadow: 4px 4px 6px slategray;
+    background-color: lightgray;
+}
+
+.note-details-header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+.edit-note-container{
+    position: absolute;
+    top: 20%;
+    left: 35%;
+    display: flex;
+    flex-flow: column nowrap;
+    background-color: whitesmoke;
+    box-shadow: 3px 3px 6px slategray;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.note-tags-autocomplete-container{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}

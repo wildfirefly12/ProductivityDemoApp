@@ -24,9 +24,13 @@ const Tag = (props) => {
         })
     }
     
+    const handleSetEditing = () => {
+        
+    }
+    
     return (
         <div className={"tag-container"} style={{backgroundColor: props.tag.color}} >
-            <p className={"tag-text"} onClick={props.handleSetIsEditing.bind(this, true, props.tag)}>{props.tag.description}</p>
+            <p className={"tag-text"} onClick={props.handleSetIsEditing ? props.handleSetIsEditing.bind(this, true, props.tag) : handleSetEditing}>{props.tag.description}</p>
             {props.taskId || props.noteId || props.listId && <Close fontSize={"small"} onClick={handleRemoveTag}/>}
         </div>
     )

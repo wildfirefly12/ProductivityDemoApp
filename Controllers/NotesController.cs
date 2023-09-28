@@ -49,7 +49,7 @@ namespace Productivity.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit(NoteDto noteDto)
+        public async Task<ActionResult> Edit([FromBody] NoteDto noteDto)
         {
             Note note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == noteDto.Id);
 

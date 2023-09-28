@@ -6,6 +6,7 @@ import axios from "axios";
 import Note from "./Note";
 import {AddBox} from "@mui/icons-material";
 import NewNote from "../tags/NewNote";
+import NoteDetails from "./NoteDetails";
 
 const Notes = (props) => {
     const [updated, setUpdated] = useState(0);
@@ -49,18 +50,33 @@ const Notes = (props) => {
         setIsCreatingNewNote(value);
     }
     
+    const [selectedNote, setSelectedNote] = useState(null);
+    
+    const[isOpenNote, setIsOpenNote] = useState(false);
+    
+    const handleOpenNote = (value) => {
+        setSelectedNote(value);
+        setIsOpenNote(true);
+    }
+    
+    const handleCloseNote = () => {
+        setSelectedNote(null);
+        setIsOpenNote(false);
+    }
+    
     return (
         <div className={"notes-container"}>
             {category && <div className={"notes-header"}>
                 <h2 className={"notes-category-title"}>Notes - {category.description}</h2>
                 <AddBox className={"notes-add-btn"} fontSize={"large"} color={"secondary"} onClick={handleOpenNewNote.bind(this, true)}/>
             </div>}
-            <div className={"notes"}>
+            <div className={"notes"} style={{filter: selectedNote != null ? "blur(3px)" : ""}}>
                 {notes && notes.map(note => 
-                    <Note key={note.id} note={note} />
+                    <Note key={note.id} note={note} onClick={handleOpenNote}/>
                 )}
             </div>
             {isCreatingNewNote && <NewNote userId={props.id} categoryId={category.id} handleOpenNewNote={handleOpenNewNote} handleSetUpdated={handleSetUpdated}/>}
+            {isOpenNote && <NoteDetails id={props.id} note={selectedNote} handleCloseNote={handleCloseNote} />}
         </div>
     )
 }
