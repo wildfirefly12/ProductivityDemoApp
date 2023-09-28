@@ -36,6 +36,7 @@ builder.Services.AddIdentityServer(options =>
         // don't delete keys after their retention period is over
         options.KeyManagement.DeleteRetiredKeys = false;
     })
+    .AddDeveloperSigningCredential()
     .AddOperationalStore(options =>
     {
         options.ConfigureDbContext = builder =>
