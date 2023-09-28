@@ -23,7 +23,19 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentityServer()
+builder.Services.AddIdentityServer(options =>
+    {
+        options.KeyManagement.RotationInterval = TimeSpan.FromDays(30);
+    
+        // announce new key 2 days in advance in discovery
+        options.KeyManagement.PropagationTime = TimeSpan.FromDays(2);
+    
+        // keep old key for 7 days in discovery for validation of tokens
+        options.KeyManagement.RetentionDuration = TimeSpan.FromDays(7);
+
+        // don't delete keys after their retention period is over
+        options.KeyManagement.DeleteRetiredKeys = false;
+    })
     .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
 
 builder.Services.AddControllersWithViews();
