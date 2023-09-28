@@ -55,7 +55,7 @@ builder.Services.AddIdentityServer(options =>
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("UDH6p7nOukKdUOE47PntxgAQzpVDn6gQrEVxyxSJ"));
+var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MaICDsOchnstDn3EBFYVIRSqy5PhjRXqmHwjMs9qlso7qcN1Pr"));
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>
