@@ -101,6 +101,5 @@ app.MapControllerRoute(
 app.MapRazorPages();
 
 app.MapFallbackToFile("index.html");
-;
 
 app.Run();
