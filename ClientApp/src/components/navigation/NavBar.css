@@ -1,4 +1,4 @@
-﻿.navbar-container{
+﻿.navbar-container {
     display: flex;
     flex-flow: column nowrap;
     background-color: aliceblue;
@@ -9,9 +9,10 @@
     height: calc(100vh - 220px);
     font-family: "Passion One", sans-serif;
     font-size: 32px;
+    overflow-y: auto;
 }
 
-.navbar-dashboard-link{
+.navbar-dashboard-link {
     display: flex;
     flex-flow: row nowrap;
     align-content: center;
@@ -19,12 +20,51 @@
     height: 45px;
 }
 
-.navbar-dashboard-text{
+.navbar-dashboard-text {
     padding: 0;
     margin: 0 0 0 5px;
 }
 
-.navbar-link{
+.navbar-link {
     color: black !important;
     text-decoration: none !important;
+}
+
+/* Hide the default scrollbar */
+::-webkit-scrollbar {
+    /*display: none;*/
+    background-color: transparent;
+    width: 10px;
+    padding: 10px 0;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background-color: transparent; /* Color of the track */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background-color: ghostwhite;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Darker color on hover */
+}
+
+/* Corner */
+::-webkit-scrollbar-corner {
+    background-color: transparent; /* Color of the corner */
+}
+
+::-webkit-scrollbar-track-piece:end {
+     background: transparent;
+     margin-bottom: 15px;
+ }
+
+::-webkit-scrollbar-track-piece:start {
+    background: transparent;
+    margin-top: 15px;
 }
