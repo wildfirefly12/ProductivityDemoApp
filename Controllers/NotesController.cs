@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using Productivity.Application.Notes;
 using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
+using List = Productivity.Application.Notes.List;
 
 namespace Productivity.Controllers
 {
@@ -18,59 +19,22 @@ namespace Productivity.Controllers
 
 
         [HttpGet]
-        public async Task<ActionResult<List<Note>>> ByUser(string id)
-        {
-            List<Note> notes = await _context.Notes
-                .Where(n => n.UserId == id)
-                .ToListAsync();
-
-            return notes;
-        }
-
-        [HttpGet]
         public async Task<ActionResult<List<Note>>> ByCategory(long id)
         {
-            List<Note> notes = await _context.Notes
-                .Where(n => n.CategoryId == id)
-                .ToListAsync();
-
-            return notes;
+            return await Mediator.Send(new List.Query{CategoryId = id});
+        }
+        
+        [HttpGet]
+        public async Task<ActionResult<Note>> ById(long id)
+        {
+            return await Mediator.Send(new Details.Query{Id = id});
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] NoteDto noteDto)
+        public async Task<IActionResult> Create([FromBody] NoteDto note)
         {
-            Note note = new Note(noteDto);
-
-            await _context.Notes.AddAsync(note);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Edit([FromBody] NoteDto noteDto)
-        {
-            Note note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == noteDto.Id);
-
-            note.Title = noteDto.Title;
-            note.Content = noteDto.Content;
-            note.Color = noteDto.Color;
-            note.CategoryId = noteDto.CategoryId;
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Delete(long id)
-        {
-            Note note = await _context.Notes.FirstOrDefaultAsync(n => n.Id == id);
-
-            _context.Notes.Remove(note);
-            await _context.SaveChangesAsync();
-
+            await Mediator.Send(new Create.Command { Note = note });
+            
             return Ok();
         }
     }

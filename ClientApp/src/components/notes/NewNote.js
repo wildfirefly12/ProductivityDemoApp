@@ -5,7 +5,7 @@ import {Close} from "@mui/icons-material";
 import {Autocomplete, Button, TextField} from "@mui/material";
 import {TagDto} from "../../dtos/TagDto";
 import axios from "axios";
-import Tag from "./Tag";
+import Tag from "../tags/Tag";
 import {NoteDto} from "../../dtos/NoteDto";
 
 const NewNote = (props) => {

@@ -8,7 +8,6 @@ import {TagDto} from "../../dtos/TagDto";
 import {TaskDto} from "../../dtos/TaskDto";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import {Dayjs} from "dayjs";
 import Tag from "../tags/Tag";
 
 const NewTask = (props) => {

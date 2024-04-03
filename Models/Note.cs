@@ -1,4 +1,6 @@
-﻿using System.Text.Json.Serialization;
+﻿using System;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using Productivity.Dtos;
 
 namespace Productivity.Models;
@@ -10,7 +12,7 @@ public class Note
     public string Content { get; set; }
     public string Color { get; set; }
     public long CategoryId { get; set; }
-    public Category Category { get; set; }
+    public NoteCategory NoteCategory { get; set; }
     public string UserId { get; set; }
     public ApplicationUser User { get; set; }
     public DateTime CreatedDate { get; set; }

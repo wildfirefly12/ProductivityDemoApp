@@ -48,10 +48,8 @@ const NavTags = (props) => {
                 <p className={"navbar-tags-title-text"}>Tags</p>
             </div>
             <div className={"nav-tags-container"}>
-                {tags.map(t => 
-                    <>
-                        <Tag tag={t} handleSetIsEditing={handleSetIsEditing} />
-                    </>
+                {tags.map((t, i) =>
+                    <Tag key={i} tag={t} handleSetIsEditing={handleSetIsEditing} />
                 )}
             </div>
             {isEditing && <EditTag tag={tag} handleSetIsEditing={handleSetIsEditing} handleSetUpdated={handleSetUpdated} />}

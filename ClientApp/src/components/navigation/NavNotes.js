@@ -3,10 +3,10 @@
 import React, {useEffect, useState} from "react";
 import {TaskOutlined} from "@mui/icons-material";
 import {Button, Divider} from "@mui/material";
-import NewCategory from "../categories/NewCategory";
 import axios from "axios";
 import NavCategory from "./NavCategory";
 import {Link} from "react-router-dom";
+import NewCategory from "../notes/NewCategory";
 
 const NavNotes = (props) => {
     const [isCreating, setIsCreating] = useState(false);
@@ -24,10 +24,9 @@ const NavNotes = (props) => {
     const [categories, setCategories] = useState([]);
 
     useEffect(() => {
-        axios.get("api/Categories/ByType", {
+        axios.get("api/NoteCategories/ByUser", {
             params: {
-                id: props.id,
-                type: "notes"
+                id: props.id
             }
         }).then(response => {
             setCategories(response.data);

@@ -5,7 +5,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import Note from "./Note";
 import {AddBox} from "@mui/icons-material";
-import NewNote from "../tags/NewNote";
+import NewNote from "./NewNote";
 import NoteDetails from "./NoteDetails";
 
 const Notes = (props) => {
@@ -19,7 +19,7 @@ const Notes = (props) => {
     const [category, setCategory] = useState(null);
 
     useEffect(() => {
-        axios.get("api/Categories/ById", {
+        axios.get("api/NoteCategories/ById", {
             params: {
                 id: id
             }

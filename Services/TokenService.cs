@@ -1,4 +1,6 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -13,12 +15,12 @@ namespace Productivity.Services
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, applicationUser.UserName),
+                //new Claim(ClaimTypes.Name, applicationUser.UserName),
                 new Claim(ClaimTypes.NameIdentifier, applicationUser.Id),
                 new Claim(ClaimTypes.Email, applicationUser.Email)
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("UDH6p7nOukKdUOE47PntxgAQzpVDn6gQrEVxyxSJ"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MaICDsOchnstDn3EBFYVIRSqy5PhjRXqmHwjMs9qlso7qcN1Pr"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
             var tokenDescriptor = new SecurityTokenDescriptor

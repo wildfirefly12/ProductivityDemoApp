@@ -16,5 +16,6 @@ namespace Productivity.Services
         public bool IsExpired => DateTime.UtcNow >= Expires;
         public DateTime? Revoked { get; set; }
         public bool IsActive => Revoked == null && !IsExpired;
+        
     }
 }

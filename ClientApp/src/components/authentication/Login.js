@@ -7,11 +7,14 @@ import {Link} from "react-router-dom";
 import axios from "axios";
 
 const Login = (props) => {
-    const [cookies, setCookie] = useCookies([]);
+    const [cookies, setCookie] = useCookies(["jwt"]);
 
     const handleSetCookie = (token) => {
+        const expirationDate = new Date();
+        expirationDate.setDate(expirationDate.getDate() + 7);
+        
         setCookie("jwt", token, {
-            path: "/"
+            expires: expirationDate
         })
     }
 

@@ -47,7 +47,6 @@ const App = () =>  {
                     setUser(response.data);
                 }).catch(async function (error) {
                     console.log(error);
-                    removeCookie("jwt");
             });
         }
     }, []);

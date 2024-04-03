@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Duende.IdentityServer.EntityFramework.Options;
 using Productivity.Models;
+using Productivity.Services;
 using Task = Productivity.Models.Task;
 
 namespace Productivity.Data
@@ -15,7 +16,9 @@ namespace Productivity.Data
         {
         }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<NoteCategory> NoteCategories { get; set; }
+        public DbSet<ListCategory> ListCategories { get; set; }
         public DbSet<List> Lists { get; set; }
         public DbSet<ListItem> ListItems { get; set; }
         public DbSet<Note> Notes { get; set; }
@@ -26,20 +29,20 @@ namespace Productivity.Data
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<Category>()
+            builder.Entity<NoteCategory>()
                 .HasOne(c => c.User)
                 .WithMany(u => u.Categories)
                 .HasForeignKey(c => c.UserId)
                 .IsRequired();
 
             builder.Entity<Note>()
-                .HasOne(n => n.Category)
+                .HasOne(n => n.NoteCategory)
                 .WithMany(c => c.Notes)
                 .HasForeignKey(n => n.CategoryId)
                 .IsRequired();
 
             builder.Entity<List>()
-                .HasOne(l => l.Category)
+                .HasOne(l => l.ListCategory)
                 .WithMany(c => c.Lists)
                 .HasForeignKey(l => l.CategoryId)
                 .IsRequired();

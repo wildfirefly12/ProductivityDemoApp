@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
 using Productivity.Services;
+using Task = System.Threading.Tasks.Task;
 
 namespace Productivity.Controllers
 {
@@ -24,6 +26,23 @@ namespace Productivity.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _tokenService = tokenService;
+        }
+
+        private async Task SetRefreshToken(ApplicationUser user)
+        {
+            var refreshToken = _tokenService.GenerateRefreshToken();
+
+            user.RefreshTokens.Add(refreshToken);
+
+            await _userManager.UpdateAsync(user);
+
+            var cookieOptions = new CookieOptions
+            {
+                HttpOnly = true,
+                Expires = DateTime.UtcNow.AddDays(7)
+            };
+
+            Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
         }
         
         [HttpGet]
@@ -47,6 +66,7 @@ namespace Productivity.Controllers
             if (result.Succeeded)
             {
                 await _userManager.UpdateAsync(user);
+                await SetRefreshToken(user);
                 return CreateUserObject(user);
             }
             if (result.IsLockedOut)

@@ -1,4 +1,3 @@
-using System.Reflection;
 using System.Text;
 using dotenv.net;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Productivity.Data;
 using Productivity.Models;
 using Productivity.Services;
+using List = Productivity.Application.NoteCategories.List;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,8 +54,11 @@ builder.Services.AddIdentityServer(options =>
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
 
 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("MaICDsOchnstDn3EBFYVIRSqy5PhjRXqmHwjMs9qlso7qcN1Pr"));
+
+builder.Services.AddScoped<TokenService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>

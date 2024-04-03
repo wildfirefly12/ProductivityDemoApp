@@ -1,4 +1,8 @@
-﻿using Duende.IdentityServer.Services.KeyManagement;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Duende.IdentityServer.Services.KeyManagement;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Productivity.Data;
@@ -12,7 +16,7 @@ namespace Productivity.Controllers
     public class TasksController : BaseApiController
     {
 
-        private ApplicationDbContext _context;
+        /*private ApplicationDbContext _context;
 
         public TasksController(ApplicationDbContext context)
         {
@@ -137,6 +141,6 @@ namespace Productivity.Controllers
             await _context.SaveChangesAsync();
 
             return Ok();
-        }
+        }*/
     }
 }

@@ -22,7 +22,7 @@ const NewCategory = (props) => {
     const handleCreateCategory = () => {
         const category = new CategoryDto(null, description, color, true, false, props.id);
         
-        axios.post("api/Categories/Create", category)
+        axios.post("api/NoteCategories/Create", category)
             .then(response => {
                 console.log(response);
             }).catch(error => {
