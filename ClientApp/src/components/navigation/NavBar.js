@@ -19,7 +19,7 @@ const NavBar = (props) => {
             </div>
             <Divider color={"darkgray"}/>
             <NavTasks />
-            <NavNotes id={props.id} />
+            <NavNotes id={props.id} updated={props.updated}/>
             <NavLists id={props.id} />
             <NavTags id={props.id} />
         </div>

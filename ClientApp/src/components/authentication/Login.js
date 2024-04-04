@@ -40,7 +40,7 @@ const Login = (props) => {
                 if(user.token != null) {
                     handleSetCookie(user.token);
                     props.handleSetUser(user);
-                    props.history.push("/")
+                    props.navigate.push("/")
                 }
             }).catch(function (error) {
             console.log(error);

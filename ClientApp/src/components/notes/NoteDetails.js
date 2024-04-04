@@ -1,7 +1,7 @@
 ﻿import "./NoteDetails.css";
 
 import React, {useEffect, useState} from "react";
-import {Close, Edit} from "@mui/icons-material";
+import {Close, Delete, Edit} from "@mui/icons-material";
 import {Autocomplete, Button, TextField} from "@mui/material";
 import Tag from "../tags/Tag";
 import axios from "axios";
@@ -84,7 +84,7 @@ const NoteDetails = (props) => {
         setIsEditing(value);
     }
     
-    const handleEditNote = () => {
+    const editNote = () => {
         let note;
         if(tags != null && tags.length > 0){
             note = new NoteDto(props.note.id, title, content, color, props.note.categoryId, props.userId, tags);
@@ -102,6 +102,16 @@ const NoteDetails = (props) => {
         handleSetIsEditing(false);
     }
     
+    const deleteNote = () => {
+        axios.post("api/Notes/Delete", props.note.id, props.config)
+            .then(response => {
+                console.log(response);
+                props.handleSetUpdated();
+            }).catch(error => {
+                console.log(error)
+        })
+    }
+    
     return (
         <>
             {!isEditing && 
@@ -110,6 +120,7 @@ const NoteDetails = (props) => {
                         <p className={"note-title"}>{props.note.title}</p>
                         <div>
                             <Edit onClick={handleSetIsEditing.bind(this, true)}/>
+                            <Delete onClick={deleteNote}/>
                             <Close onClick={props.handleCloseNote}/>
                         </div>
                     </div>
@@ -142,7 +153,7 @@ const NoteDetails = (props) => {
                             <Tag tag={tag} noteId={props.note.id} />
                         )}
                     </div>
-                    <Button sx={{width: "100px", alignSelf: "flex-end"}} variant={"contained"} color={"secondary"} onClick={handleEditNote}>Save</Button>
+                    <Button sx={{width: "100px", alignSelf: "flex-end"}} variant={"contained"} color={"secondary"} onClick={editNote}>Save</Button>
                 </div>
             }
         </>

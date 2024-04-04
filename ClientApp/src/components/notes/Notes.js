@@ -30,7 +30,7 @@ const Notes = (props) => {
         }).catch(error => {
             console.log(error)
         })
-    }, []);
+    }, [id]);
 
     const [notes, setNotes] = useState([]);
 
@@ -44,7 +44,13 @@ const Notes = (props) => {
         }).catch(error => {
             console.log(error)
         })
-    }, [updated]);
+    }, [updated, category]);
+
+    useEffect(() => {
+        if (selectedNote){
+            setSelectedNote(notes.find(n => n.id === selectedNote.id));
+        }
+    }, [notes]);
 
     const [isCreatingNewNote, setIsCreatingNewNote] = useState(false);
 
@@ -102,12 +108,14 @@ const Notes = (props) => {
             .then(response => {
                 console.log(response);
                 closeDeleteConfirmation();
+                props.updateAll();
             }).catch(error => {
                 console.log(error);
                 closeDeleteConfirmation();
                 setMessage(error.response.data);
                 openMessage();
         })
+        props.navigate("/");
     }
 
     const titleStyle = {
@@ -128,7 +136,7 @@ const Notes = (props) => {
                     <AddBox className={"notes-add-btn"} fontSize={"large"} color={"secondary"}
                             onClick={handleOpenNewNote.bind(this, true)}/>
                 </div>}
-                <div className={"notes"} style={{filter: selectedNote != null ? "blur(3px)" : ""}}>
+                <div className={"notes"} style={{filter: selectedNote != null || isCatEditorOpen ? "blur(3px)" : ""}}>
                     {notes && notes.map(note =>
                         <Note key={note.id} note={note} onClick={handleOpenNote}/>
                     )}
@@ -136,7 +144,7 @@ const Notes = (props) => {
                 {isCreatingNewNote &&
                     <NewNote userId={props.id} categoryId={category.id} handleOpenNewNote={handleOpenNewNote}
                              handleSetUpdated={handleSetUpdated}/>}
-                {isOpenNote && <NoteDetails id={props.id} note={selectedNote} handleCloseNote={handleCloseNote}/>}
+                {isOpenNote && selectedNote && <NoteDetails id={props.id} note={selectedNote} config={props.config} handleCloseNote={handleCloseNote} handleSetUpdated={handleSetUpdated} />}
                 {isCatEditorOpen && <EditNotesCategory category={category} closeEditor={closeCatEditor}
                                                        handleSetUpdated={handleSetUpdated}/>}
             </div>

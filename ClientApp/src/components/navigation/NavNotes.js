@@ -9,6 +9,12 @@ import {Link} from "react-router-dom";
 import NewNotesCategory from "../notes/NewNotesCategory";
 
 const NavNotes = (props) => {
+
+    const [updated, setUpdated] = useState(0);
+    const handleSetUpdated = () => {
+        setUpdated(updated + 1);
+    }
+    
     const [isCreating, setIsCreating] = useState(false);
 
     const handleSetIsCreating = (value) => {
@@ -33,7 +39,7 @@ const NavNotes = (props) => {
         }).catch(error => {
             console.log(error);
         })
-    }, []);
+    }, [props.updated, updated]);
     
     return (
         <div>
@@ -68,7 +74,7 @@ const NavNotes = (props) => {
                     <p className={"nav-notes-new-category-text"} onClick={handleSetIsCreating.bind(this, true)}>New Category</p>
                 </div>
             </div>
-            {isCreating && <NewNotesCategory id={props.id} handleSetIsCreating={handleSetIsCreating}/>}
+            {isCreating && <NewNotesCategory id={props.id} handleSetIsCreating={handleSetIsCreating} handleUpdate={handleSetUpdated}/>}
         </div>
     )
 }

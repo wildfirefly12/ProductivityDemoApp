@@ -1,75 +1,38 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Productivity.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Productivity.Application.Lists;
 using Productivity.Dtos;
-using Productivity.Models;
 
 namespace Productivity.Controllers;
 
 public class ListsController : BaseApiController
 {
-    private ApplicationDbContext _context;
-
-    public ListsController(ApplicationDbContext context)
-    {
-        _context = context;
-    }
-
-
     [HttpGet]
-    public async Task<ActionResult<List<List>>> ByUser(string id)
+    public async Task<ActionResult<List<Productivity.Models.List>>> ByCategory(long id)
     {
-        List<List> lists = await _context.Lists
-            .Where(l => l.UserId == id)
-            .ToListAsync();
-
-        return lists;
+        return HandleResult(await Mediator.Send(new Productivity.Application.Lists.List.Query{CategoryId = id}));
     }
-
-    [HttpGet]
-    public async Task<ActionResult<List<List>>> ByCategory(long id)
-    {
-        List<List> lists = await _context.Lists
-            .Where(l => l.CategoryId == id)
-            .ToListAsync();
-
-        return lists;
-    }
-
-    [HttpPost]
-    public async Task<ActionResult> Create(ListDto listDto)
-    {
-        List list = new List(listDto);
-
-        await _context.Lists.AddAsync(list);
         
-        return Ok();
+    [HttpGet]
+    public async Task<ActionResult<Productivity.Models.List>> ById(long id)
+    {
+        return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
     }
 
     [HttpPost]
-    public async Task<ActionResult> Edit(ListDto listDto)
+    public async Task<IActionResult> Create([FromBody] ListDto note)
     {
-        List list = await _context.Lists.FirstOrDefaultAsync(l => l.Id == listDto.Id);
-
-        list.Title = listDto.Title;
-        list.CategoryId = listDto.CategoryId;
-
-        await _context.SaveChangesAsync();
-
-        return Ok();
+        return HandleResult(await Mediator.Send(new Create.Command { List = note }));
     }
 
     [HttpPost]
-    public async Task<ActionResult> Delete(long id)
+    public async Task<IActionResult> Edit([FromBody] ListDto note)
     {
-        List list = await _context.Lists.FirstOrDefaultAsync(l => l.Id == id);
+        return HandleResult(await Mediator.Send(new Edit.Command { List = note }));
+    }
 
-        _context.Lists.Remove(list);
-        await _context.SaveChangesAsync();
-
-        return Ok();
+    [HttpPost]
+    public async Task<IActionResult> Delete([FromBody] long id)
+    {
+        return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
     }
 }

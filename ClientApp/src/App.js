@@ -25,7 +25,7 @@ const App = () =>  {
     const [cookies, removeCookie] = useCookies(["jwt"]);
     const token = 'Bearer ' + cookies.jwt;
 
-    const history = useNavigate();
+    const navigate = useNavigate();
 
     const config = {
         headers: {
@@ -50,17 +50,23 @@ const App = () =>  {
             });
         }
     }, []);
+    
+    const [updated, setUpdated] = useState(0);
+    
+    const handleSetUpdated = () => {
+        setUpdated(updated + 1);
+    }
 
     return (
         <ThemeProvider theme={theme}>
             {user ? <div className={"app-container"}>
-                <NavBar id={user.id}/>
+                <NavBar id={user.id} updated={updated}/>
                 <Routes>
                     <Route path={"tasks/:type"} element={<Tasks id={user.id} config={config}/>}/>
-                    <Route path={"notes/:id"} element={<Notes id={user.id} config={config}/>}/>
+                    <Route path={"notes/:id"} element={<Notes id={user.id} config={config} updateAll={handleSetUpdated} navigate={navigate}/>}/>
                 </Routes>
             </div> :
-            <Login config={config} handleSetUser={handleSetUser} history={history}/>}
+            <Login config={config} handleSetUser={handleSetUser} navigate={navigate}/>}
         </ThemeProvider>
     );
 }

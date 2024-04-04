@@ -2,13 +2,11 @@
 using Productivity.Core;
 using Productivity.Data;
 using Productivity.Dtos;
-using Productivity.Models;
-using Task = System.Threading.Tasks.Task;
 
-namespace Productivity.Application.Notes {
+namespace Productivity.Application.Lists {
     public class Create {
         public class Command : IRequest<Result<Unit>> {
-            public NoteDto Note { get; set; }
+            public ListDto List { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>> {
@@ -21,11 +19,11 @@ namespace Productivity.Application.Notes {
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Notes.Add(new Note(request.Note));
+                _context.Lists.Add(new Productivity.Models.List(request.List));
 
                 var result = await _context.SaveChangesAsync() > 0;
-                
-                if(!result) return Result<Unit>.Failure("Failed to create note.");
+
+                if (!result) return Result<Unit>.Failure("Failed to create  List.");
 
                 return Result<Unit>.Success(Unit.Value);
             }

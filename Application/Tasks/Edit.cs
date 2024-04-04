@@ -3,12 +3,11 @@ using Productivity.Core;
 using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
-using Task = System.Threading.Tasks.Task;
 
-namespace Productivity.Application.Notes {
+namespace Productivity.Application.Tasks {
     public class Edit {
         public class Command : IRequest<Result<Unit>> {
-            public NoteDto Note { get; set; }
+            public TaskDto Task { get; set; }
         }
 
         public class Handler : IRequestHandler<Edit.Command, Result<Unit>> {
@@ -21,17 +20,15 @@ namespace Productivity.Application.Notes {
 
             public async Task<Result<Unit>> Handle(Edit.Command request, CancellationToken cancellationToken)
             {
-                Note note = await _context.Notes.FindAsync(request.Note.Id);
+                Productivity.Models.Task task = await _context.Tasks.FindAsync(request.Task.Id);
 
-                if (note == null) return null;
+                if (task == null) return null;
 
-                note.Title = request.Note.Title ?? note.Title;
-                note.Content = request.Note.Content ?? note.Content;
-                note.Color = request.Note.Color ?? note.Color;
+                task.Title = request.Task.Title ?? task.Title;
                 
                 var result = await _context.SaveChangesAsync() > 0;
                 
-                if (!result) return Result<Unit>.Failure("Failed to save changes to note.");
+                if (!result) return Result<Unit>.Failure("Failed to save changes to task.");
 
                 return Result<Unit>.Success(Unit.Value);
             }

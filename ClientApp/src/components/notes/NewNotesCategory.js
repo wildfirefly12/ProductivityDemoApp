@@ -25,6 +25,8 @@ const NewNotesCategory = (props) => {
         axios.post("api/NoteCategories/Create", category)
             .then(response => {
                 console.log(response);
+                props.handleSetIsCreating(false);
+                props.handleUpdate();
             }).catch(error => {
                 console.log(error);
         })

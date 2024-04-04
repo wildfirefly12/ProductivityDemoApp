@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Productivity.Application.Notes;
-using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
 using List = Productivity.Application.Notes.List;
@@ -10,32 +9,34 @@ namespace Productivity.Controllers
 
     public class NotesController : BaseApiController
     {
-        private ApplicationDbContext _context;
-
-        public NotesController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
-
         [HttpGet]
         public async Task<ActionResult<List<Note>>> ByCategory(long id)
         {
-            return await Mediator.Send(new List.Query{CategoryId = id});
+            return HandleResult(await Mediator.Send(new List.Query{CategoryId = id}));
         }
         
         [HttpGet]
         public async Task<ActionResult<Note>> ById(long id)
         {
-            return await Mediator.Send(new Details.Query{Id = id});
+            return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
         }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] NoteDto note)
         {
-            await Mediator.Send(new Create.Command { Note = note });
-            
-            return Ok();
+            return HandleResult(await Mediator.Send(new Create.Command { Note = note }));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit([FromBody] NoteDto note)
+        {
+            return HandleResult(await Mediator.Send(new Edit.Command { Note = note }));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete([FromBody] long id)
+        {
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
         }
     }
 }

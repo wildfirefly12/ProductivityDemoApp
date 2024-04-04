@@ -1,146 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Duende.IdentityServer.Services.KeyManagement;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Productivity.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Productivity.Application.Tasks;
 using Productivity.Dtos;
-using Productivity.Models;
-using Task = Productivity.Models.Task;
 
 namespace Productivity.Controllers
 {
 
     public class TasksController : BaseApiController
     {
-
-        /*private ApplicationDbContext _context;
-
-        public TasksController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         public async Task<ActionResult<List<Models.Task>>> ByUser(string id)
         {
-            List<Models.Task> tasks = await _context.Tasks
-                .Where(t => t.UserId == id)
-                .ToListAsync();
-
-            return tasks;
+            return HandleResult(await Mediator.Send(new List.Query{UserId = id}));
         }
-
+        
         [HttpGet]
-        public async Task<ActionResult<List<Models.Task>>> ByType(string id, string type)
+        public async Task<ActionResult<Models.Task>> ById(long id)
         {
-            List<Models.Task> tasks = new List<Task>();
-            
-            switch (type)
-            {
-                case "today":
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id && t.DueDate.Date == DateTime.Today && !t.IsComplete)
-                        .ToListAsync();
-                    break;
-                case "pending":
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id && !t.IsComplete)
-                        .ToListAsync();
-                    break;
-                case "overdue":
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id && t.DueDate.Date < DateTime.Today && !t.IsComplete)
-                        .ToListAsync();
-                    break;
-                case "completed":
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id && t.IsComplete)
-                        .ToListAsync();
-                    break;
-                case "recurring":
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id && t.IsRecurring && !t.IsComplete)
-                        .ToListAsync();
-                    break;
-                default:
-                    tasks = await _context.Tasks
-                        .Include(t => t.Tags)
-                        .Where(t => t.UserId == id)
-                        .ToListAsync();
-                    break;
-            }
-            
-            
-
-            return tasks;
+            return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Create([FromBody] TaskDto taskDto)
+        public async Task<IActionResult> Create([FromBody] TaskDto task)
         {
-            Models.Task task = new Models.Task(taskDto);
-
-            foreach (var tag in task.Tags)
-            {
-                _context.Set<Tag>().Attach(tag);
-            }
-            
-            await _context.Tasks.AddAsync(task);
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return HandleResult(await Mediator.Send(new Create.Command { Task = task }));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Edit([FromBody] TaskDto taskDto)
+        public async Task<IActionResult> Edit([FromBody] TaskDto task)
         {
-            Models.Task task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == taskDto.Id);
-
-            task.Title = taskDto.Title;
-            task.Description = taskDto.Description;
-            task.DueDate = taskDto.DueDate;
-            task.Priority = taskDto.Priority;
-            task.IsRecurring = taskDto.IsRecurring;
-            task.IsComplete = taskDto.IsComplete;
-
-            if (taskDto.Tags != null)
-            {
-                if (task.Tags == null)
-                {
-                    task.Tags = new List<Tag>();
-                }
-            }
-            
-            foreach (var tag in taskDto.Tags)
-            {
-                if (!task.Tags.Contains(tag))
-                {
-                    task.Tags.Add(tag);
-                }
-            }
-
-            await _context.SaveChangesAsync();
-
-            return Ok();
+            return HandleResult(await Mediator.Send(new Edit.Command { Task = task }));
         }
 
         [HttpPost]
-        public async Task<ActionResult> Delete([FromBody] long id)
+        public async Task<IActionResult> Delete([FromBody] long id)
         {
-            Models.Task task = await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
-
-            _context.Tasks.Remove(task);
-            await _context.SaveChangesAsync();
-
-            return Ok();
-        }*/
+            return HandleResult(await Mediator.Send(new Delete.Command { Id = id }));
+        }
     }
 }
