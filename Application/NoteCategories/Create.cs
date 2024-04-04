@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Productivity.Core;
 using Productivity.Data;
 using Productivity.Dtos;
 using Productivity.Models;
@@ -6,11 +7,11 @@ using Task = System.Threading.Tasks.Task;
 
 namespace Productivity.Application.NoteCategories {
     public class Create {
-        public class Command : IRequest {
+        public class Command : IRequest<Result<Unit>> {
             public CategoryDto Category { get; set; }
         }
 
-        public class Handler : IRequestHandler<Command> {
+        public class Handler : IRequestHandler<Command, Result<Unit>> {
             private readonly ApplicationDbContext _context;
 
             public Handler(ApplicationDbContext context)
@@ -18,11 +19,15 @@ namespace Productivity.Application.NoteCategories {
                 _context = context;
             }
 
-            public async Task Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
                 _context.NoteCategories.Add(new NoteCategory(request.Category));
 
-                await _context.SaveChangesAsync();
+                var result = await _context.SaveChangesAsync() > 0;
+
+                if (!result) return Result<Unit>.Failure("Failed to create note category.");
+
+                return Result<Unit>.Success(Unit.Value);
             }
         }
     }

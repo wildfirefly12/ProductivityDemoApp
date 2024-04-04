@@ -19,15 +19,22 @@
      flex-flow: row nowrap;
      justify-content: space-between;
      align-content: center;
-     font-family: "Passion One", sans-serif;
-     font-size: 32px;
      width: 98%;
  }
 
-.notes-category-title{
-    font-family: "Passion One", sans-serif;
-    font-size: 32px;
+.notes-category-title-container{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
 }
+
+.notes-category-color{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 3px;
+}
+
 .notes-add-btn:hover{
      cursor: pointer;
  }

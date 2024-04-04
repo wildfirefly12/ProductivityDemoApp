@@ -6,7 +6,7 @@ import {Button, Divider} from "@mui/material";
 import axios from "axios";
 import NavCategory from "./NavCategory";
 import {Link} from "react-router-dom";
-import NewCategory from "../notes/NewCategory";
+import NewNotesCategory from "../notes/NewNotesCategory";
 
 const NavNotes = (props) => {
     const [isCreating, setIsCreating] = useState(false);
@@ -68,7 +68,7 @@ const NavNotes = (props) => {
                     <p className={"nav-notes-new-category-text"} onClick={handleSetIsCreating.bind(this, true)}>New Category</p>
                 </div>
             </div>
-            {isCreating && <NewCategory id={props.id} handleSetIsCreating={handleSetIsCreating}/>}
+            {isCreating && <NewNotesCategory id={props.id} handleSetIsCreating={handleSetIsCreating}/>}
         </div>
     )
 }

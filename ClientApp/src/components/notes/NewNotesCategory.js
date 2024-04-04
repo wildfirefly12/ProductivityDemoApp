@@ -1,4 +1,4 @@
-﻿import "./NewCategory.css";
+﻿import "./NewNotesCategory.css";
 
 import React, {useState} from "react";
 import {Close} from "@mui/icons-material";
@@ -6,7 +6,7 @@ import {Button, TextField} from "@mui/material";
 import axios from "axios";
 import {CategoryDto} from "../../dtos/CategoryDto";
 
-const NewCategory = (props) => {
+const NewNotesCategory = (props) => {
     
     const [description, setDescription] = useState("");
     const [color, setColor] = useState("#e3e3e3");
@@ -44,4 +44,4 @@ const NewCategory = (props) => {
     )
 }
 
-export default NewCategory
+export default NewNotesCategory
