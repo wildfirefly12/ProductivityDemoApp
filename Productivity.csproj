@@ -44,6 +44,7 @@
       <_ContentIncludedByDefault Remove="Pages\_ViewImports.cshtml" />
     </ItemGroup>
     <ItemGroup>
+      <Folder Include="Application\ListItems\" />
       <Folder Include="ClientApp\src\components\landing\" />
     </ItemGroup>
 
