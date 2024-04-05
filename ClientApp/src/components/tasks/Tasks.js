@@ -36,7 +36,7 @@ const Tasks = (props) => {
     return (
         <div className={"tasks-container"}>
             <div className={"tasks-header"}>
-                <h2>Tasks - {type.slice(0, 1).toUpperCase() + type.slice(1)}</h2>
+                <h2>{type.slice(0, 1).toUpperCase() + type.slice(1)}</h2>
                 <AddBox className={"tasks-add-btn"} fontSize={"large"} color={"secondary"} onClick={handleOpenNewTask}/>
             </div>
             <div className={"tasks-sections-container"}>

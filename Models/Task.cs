@@ -19,7 +19,7 @@ namespace Productivity.Models
         public string UserId { get; set; }
         public ApplicationUser User { get; set; }
 
-        public ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; } = new List<Tag>();
 
         public Task()
         {
@@ -34,7 +34,7 @@ namespace Productivity.Models
             IsRecurring = taskDto.IsRecurring;
             IsComplete = taskDto.IsComplete;
             UserId = taskDto.UserId;
-            if (taskDto.Tags.Count > 0)
+            if (taskDto.Tags != null && taskDto.Tags.Count > 0)
             {
                 Tags = taskDto.Tags;
             }

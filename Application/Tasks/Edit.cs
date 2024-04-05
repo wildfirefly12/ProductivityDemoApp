@@ -10,7 +10,7 @@ namespace Productivity.Application.Tasks {
             public TaskDto Task { get; set; }
         }
 
-        public class Handler : IRequestHandler<Edit.Command, Result<Unit>> {
+        public class Handler : IRequestHandler<Command, Result<Unit>> {
             private readonly ApplicationDbContext _context;
 
             public Handler(ApplicationDbContext context)
@@ -18,13 +18,18 @@ namespace Productivity.Application.Tasks {
                 _context = context;
             }
 
-            public async Task<Result<Unit>> Handle(Edit.Command request, CancellationToken cancellationToken)
+            public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                Productivity.Models.Task task = await _context.Tasks.FindAsync(request.Task.Id);
+                Models.Task task = await _context.Tasks.FindAsync(request.Task.Id);
 
                 if (task == null) return null;
 
                 task.Title = request.Task.Title ?? task.Title;
+                task.Description = request.Task.Description ?? task.Description;
+                task.IsComplete = request.Task.IsComplete;
+                task.IsRecurring = request.Task.IsRecurring;
+                task.DueDate = request.Task.DueDate;
+                
                 
                 var result = await _context.SaveChangesAsync() > 0;
                 

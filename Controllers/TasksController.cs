@@ -8,9 +8,9 @@ namespace Productivity.Controllers
     public class TasksController : BaseApiController
     {
         [HttpGet]
-        public async Task<ActionResult<List<Models.Task>>> ByUser(string id)
+        public async Task<ActionResult<List<Models.Task>>> ByUserType(string id, string type)
         {
-            return HandleResult(await Mediator.Send(new List.Query{UserId = id}));
+            return HandleResult(await Mediator.Send(new List.Query{UserId = id, Type = type}));
         }
         
         [HttpGet]

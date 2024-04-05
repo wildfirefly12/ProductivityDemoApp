@@ -53,3 +53,8 @@
     align-self: flex-start;
     justify-self: flex-end;
 }
+
+.tasks-details-btns-container{
+    display: flex;
+    flex-flow: row nowrap;
+}

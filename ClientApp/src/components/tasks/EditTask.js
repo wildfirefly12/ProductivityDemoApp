@@ -7,9 +7,11 @@ import axios from "axios";
 import {TagDto} from "../../dtos/TagDto";
 import {TaskDto} from "../../dtos/TaskDto";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs, {Dayjs} from "dayjs";
 import Tag from "../tags/Tag";
+import dayjs from "dayjs";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+
+const moment = require("moment");
 
 const NewTask = (props) => {
     
@@ -89,10 +91,11 @@ const NewTask = (props) => {
     
     const handleEditTask = () => {
         let task;
+        console.log(dueDate)
         if(tags && tags.length > 0){
-            task = new TaskDto(props.task.id, title, description, dueDate, priority, isRecurring, false, props.id, tags);
+            task = new TaskDto(props.task.id, title, description, moment(dueDate.$d).local().format(), priority, isRecurring, false, props.id, tags);
         } else {
-            task = new TaskDto(props.task.id, title, description, dueDate, priority, isRecurring, false, props.id);
+            task = new TaskDto(props.task.id, title, description, moment(dueDate.$d).local().format(), priority, isRecurring, false, props.id);
         }
         
         axios.post("api/Tasks/Edit", task, props.config)
@@ -120,14 +123,13 @@ const NewTask = (props) => {
                 shrink: title !== '',
                 }}/>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker 
-                    sx={{margin: "10px"}} 
-                    size={"small"} 
-                    variant={"outlined"} 
-                    label={"Due Date"} 
-                    value={dueDate} 
-                    onChange={(newValue) => setDueDate(newValue)}
-                />
+                <DateTimePicker sx={{margin: "10px"}}
+                                size={"small"}
+                                variant={"outlined"}
+                                label={"Due Date"}
+                                value={dueDate}
+                                format="MMM DD, YYYY hh:mm A"
+                                onChange={(newValue) => setDueDate(newValue)}/>
             </LocalizationProvider>
             <Select sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"} value={priority} onChange={handleSetPriority}>
                 <MenuItem value={2}>Low</MenuItem>

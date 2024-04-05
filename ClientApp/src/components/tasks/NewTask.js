@@ -7,8 +7,11 @@ import axios from "axios";
 import {TagDto} from "../../dtos/TagDto";
 import {TaskDto} from "../../dtos/TaskDto";
 import {DateTimePicker, LocalizationProvider} from "@mui/x-date-pickers";
+import dayjs from "dayjs";
 import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
 import Tag from "../tags/Tag";
+
+const moment = require("moment");
 
 const NewTask = (props) => {
     
@@ -94,9 +97,9 @@ const NewTask = (props) => {
     const handleCreateNewTask = () => {
         let task;
         if(tags.length > 0){
-            task = new TaskDto(null, title, description, dueDate, priority, isRecurring, false, props.id, tags);
+            task = new TaskDto(null, title, description, moment(dueDate.$d).local().format(), priority, isRecurring, false, props.id, tags);
         } else {
-            task = new TaskDto(null, title, description, dueDate, priority, isRecurring, false, props.id);
+            task = new TaskDto(null, title, description, moment(dueDate.$d).local().format(), priority, isRecurring, false, props.id);
         }
         
         axios.post("api/Tasks/Create", task, props.config)
@@ -113,7 +116,13 @@ const NewTask = (props) => {
             <Close sx={{alignSelf: "flex-end", marginBottom: "5px"}} onClick={props.handleCloseNewTask}/>
             <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"} onChange={handleSetTitle}/>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DateTimePicker  sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Due Date"} value={dueDate} onChange={(newValue) => setDueDate(newValue)}/>
+                <DateTimePicker sx={{margin: "10px"}}
+                                size={"small"}
+                                variant={"outlined"}
+                                label={"Due Date"}
+                                value={dueDate}
+                                format="MMM DD, YYYY hh:mm A"
+                                onChange={(newValue) => setDueDate(newValue)}/>
             </LocalizationProvider>
             <Select sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"} onChange={handleSetPriority}>
                 <MenuItem value={2}>Low</MenuItem>

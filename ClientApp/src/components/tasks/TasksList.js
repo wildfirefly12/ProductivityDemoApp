@@ -9,7 +9,7 @@ const TasksList = (props) => {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        axios.get("api/Tasks/ByType", {
+        axios.get("api/Tasks/ByUserType", {
             params : {
                 id: props.id,
                 type: props.type
@@ -20,6 +20,12 @@ const TasksList = (props) => {
             console.log(error);
         })
     }, [props.type, props.updated]);
+
+    useEffect(() => {
+        if (props.selected){
+            props.handleSetSelected(tasks.find(t => t.id === props.selected.id));
+        }
+    }, [tasks]);
     
     return (
         <>

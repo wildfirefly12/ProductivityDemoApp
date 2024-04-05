@@ -1,9 +1,10 @@
 ﻿import "./TaskDetails.css";
 
 import React, {useState} from "react";
-import {Edit, Event} from "@mui/icons-material";
+import {Delete, Edit, Event} from "@mui/icons-material";
 import Tag from "../tags/Tag";
 import EditTask from "./EditTask";
+import axios from "axios";
 
 const TaskDetails = (props) => {
     
@@ -28,7 +29,15 @@ const TaskDetails = (props) => {
         setIsEditing(value);
     }
     
-    
+    const deleteTask = () => {
+        axios.post("api/Tasks/Delete", props.task.id, props.config)
+            .then(response => {
+                console.log(response);
+                props.handleUpdate();
+            }).catch(error => {
+                console.log(error);
+        })
+    }
     
     return (
         <div className={"tasks-details-container"}>
@@ -36,7 +45,10 @@ const TaskDetails = (props) => {
                 <div className={"tasks-details-info-container"}>
                     <div className={"tasks-details-title"}>
                         <p>{props.task.title}</p>
-                        <Edit color={"secondary"} onClick={handleSetIsEditing.bind(this, true)}/>
+                        <div className={"tasks-details-btns-container"}>
+                            <Edit onClick={handleSetIsEditing.bind(this, true)}/>
+                            <Delete onClick={deleteTask}/>
+                        </div>
                     </div>
                     <div className={"tasks-details-date"}>
                         <Event/>
