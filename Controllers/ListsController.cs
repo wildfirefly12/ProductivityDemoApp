@@ -9,7 +9,7 @@ public class ListsController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<List<Productivity.Models.List>>> ByCategory(long id)
     {
-        return HandleResult(await Mediator.Send(new Productivity.Application.Lists.List.Query{CategoryId = id}));
+        return HandleResult(await Mediator.Send(new List.Query{CategoryId = id}));
     }
         
     [HttpGet]

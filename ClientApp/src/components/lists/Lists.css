@@ -1,0 +1,34 @@
+.lists-container{
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
+
+.lists-header{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+}
+
+.lists-sections-container{
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    height: 100%;
+    padding: 15px;
+    width: 48%;
+    min-width: 300px;
+    border-radius: 15px;
+    border: 1px solid darkgray;
+    overflow: hidden;
+    overflow-y: auto;
+    margin-right: 20px;
+}
+
+.lists-add-btn:hover{
+    cursor: pointer;
+}

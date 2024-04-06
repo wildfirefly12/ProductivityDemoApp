@@ -1,8 +1,8 @@
 ﻿import "./NavNotes.css";
 
 import React, {useEffect, useState} from "react";
-import {TaskOutlined} from "@mui/icons-material";
-import {Button, Divider} from "@mui/material";
+import {AddBox, TaskOutlined} from "@mui/icons-material";
+import {Button, Divider, Typography} from "@mui/material";
 import axios from "axios";
 import NavCategory from "./NavCategory";
 import {Link} from "react-router-dom";
@@ -55,23 +55,14 @@ const NavNotes = (props) => {
                     </Link>
                 )}
                 <div className={"nav-notes-new-category-container"}>
-                    <Button
+                    <AddBox
                         sx={{
-                            backgroundColor: "#b3b3b3",
-                            padding: "2px 2px",
-                            color: "black",
-                            fontFamily: "Roboto Condensed, sans-serif",
-                            textTransform: "capitalize",
-                            fontSize: "14px",
-                            fontWeight: 400,
-                            height: "20px",
-                            maxWidth: "20px !important",
-                            minWidth: "20px !important",
+                            Color: "#b3b3b3",
                             margin: "6px"
                         }}
                         onClick={handleSetIsCreating.bind(this, true)}
-                    >+</Button>
-                    <p className={"nav-notes-new-category-text"} onClick={handleSetIsCreating.bind(this, true)}>New Category</p>
+                    />
+                    <Typography sx={{fontFamily: "Roboto Condensed, sans-serif", fontSize: "14px", fontStyle: "italic", margin: 0}} onClick={handleSetIsCreating.bind(this, true)}>New Category</Typography>
                 </div>
             </div>
             {isCreating && <NewNotesCategory id={props.id} handleSetIsCreating={handleSetIsCreating} handleUpdate={handleSetUpdated}/>}

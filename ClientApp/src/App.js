@@ -8,6 +8,7 @@ import axios from "axios";
 import {CookiesProvider, useCookies} from "react-cookie";
 import Login from "./components/authentication/Login";
 import Notes from "./components/notes/Notes";
+import Lists from "./components/lists/Lists";
 
 const App = () =>  {
 
@@ -64,6 +65,7 @@ const App = () =>  {
                 <Routes>
                     <Route path={"tasks/:type"} element={<Tasks id={user.id} config={config}/>}/>
                     <Route path={"notes/:id"} element={<Notes id={user.id} config={config} updateAll={handleSetUpdated} navigate={navigate}/>}/>
+                    <Route path={"lists/:id"} element={<Lists id={user.id} config={config} updateAll={handleSetUpdated} navigate={navigate}/>}/>
                 </Routes>
             </div> :
             <Login config={config} handleSetUser={handleSetUser} navigate={navigate}/>}
