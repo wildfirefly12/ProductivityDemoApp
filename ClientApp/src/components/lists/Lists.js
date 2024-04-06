@@ -6,6 +6,7 @@ import {useParams} from "react-router-dom";
 import axios from "axios";
 import List from "./List";
 import {Typography} from "@mui/material";
+import NewList from "./NewList";
 
 const Lists = (props) => {
     const { id } = useParams();
@@ -42,14 +43,14 @@ const Lists = (props) => {
         })
     }, [category]);
 
-    const [newListOpen, setNewListOpen] = useState(false);
+    const [isNewListOpen, setIsNewListOpen] = useState(false);
 
     const handleOpenNewList = () => {
-        setNewListOpen(true);
+        setIsNewListOpen(true);
     }
 
     const handleCloseNewList = ()=> {
-        setNewListOpen(false);
+        setIsNewListOpen(false);
         handleUpdate()
     }
 
@@ -75,6 +76,7 @@ const Lists = (props) => {
                     <List key={list.id} id={list.id} handleUpdate={props.handleUpdate} config={props.config} />
                 )}
             </div>
+            {isNewListOpen ? <NewList catId={category.id} userId={category.userId} config={props.config}/> : ""}
         </div>
     )
 }
