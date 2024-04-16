@@ -50,7 +50,7 @@ const NavNotes = (props) => {
             <Divider color={"darkgray"} sx={{marginBottom: "5px"}}/>
             <div className={"nav-category-categories"}>
                 {categories.map(category =>
-                    <Link to={`/notes/${category.id}`} style={{textDecoration: "none"}}>
+                    <Link key={category.id} to={`/notes/${category.id}`} style={{textDecoration: "none"}}>
                         <NavCategory category={category} />
                     </Link>
                 )}

@@ -2,12 +2,11 @@
 using Productivity.Core;
 using Productivity.Data;
 using Productivity.Dtos;
-using Productivity.Models;
 
-namespace Productivity.Application.ListCategories {
+namespace Productivity.Application.ListItems {
     public class Create {
         public class Command : IRequest<Result<Unit>> {
-            public CategoryDto Category { get; set; }
+            public ListItemDto ListItem { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>> {
@@ -20,11 +19,11 @@ namespace Productivity.Application.ListCategories {
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.ListCategories.Add(new ListCategory(request.Category));
+                _context.ListItems.Add(new Productivity.Models.ListItem(request.ListItem));
 
                 var result = await _context.SaveChangesAsync() > 0;
 
-                if (!result) return Result<Unit>.Failure("Failed to create list category.");
+                if (!result) return Result<Unit>.Failure("Failed to create  List.");
 
                 return Result<Unit>.Success(Unit.Value);
             }

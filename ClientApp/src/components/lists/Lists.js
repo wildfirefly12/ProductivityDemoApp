@@ -9,7 +9,7 @@ import {Typography} from "@mui/material";
 import NewList from "./NewList";
 
 const Lists = (props) => {
-    const { id } = useParams();
+    const {id} = useParams();
 
     const [updated, setUpdated] = useState(0);
 
@@ -30,26 +30,29 @@ const Lists = (props) => {
             console.log(error)
         })
     }, [id]);
-    
+
     const [lists, setLists] = useState([]);
 
     useEffect(() => {
+        console.log("hit")
         axios.get("api/Lists/ByCategory", {
-            params: id
+            params: {
+                id: id
+            }
         }).then(response => {
-                setLists(response.data);
-            }).catch(error => {
-                console.log(error);
+            setLists(response.data);
+        }).catch(error => {
+            console.log(error);
         })
-    }, [category]);
+    }, []);
 
     const [isNewListOpen, setIsNewListOpen] = useState(false);
 
-    const handleOpenNewList = () => {
+    const openNewList = () => {
         setIsNewListOpen(true);
     }
 
-    const handleCloseNewList = ()=> {
+    const closeNewList = () => {
         setIsNewListOpen(false);
         handleUpdate()
     }
@@ -64,19 +67,27 @@ const Lists = (props) => {
         fontFamily: "Passion One, sans-serif",
         fontSize: "32px"
     }
-    
+
     return (
-        <div className={"lists-container"}>
+        <div className={"lists-page-container"}>
             <div className={"lists-header"}>
                 {category && <Typography sx={titleStyle}>{category.description}</Typography>}
-                <AddBox className={"lists-add-btn"} fontSize={"large"} color={"secondary"} onClick={handleOpenNewList}/>
+                <AddBox className={"lists-add-btn"} fontSize={"large"} color={"secondary"} onClick={openNewList}/>
             </div>
-            <div className={"lists-sections-container"}>
-                {lists.map(list =>
-                    <List key={list.id} id={list.id} handleUpdate={props.handleUpdate} config={props.config} />
-                )}
+            <div className={"lists-details-container"}>
+                <div className={"lists-container"}>
+                    {lists.map(list =>
+                        <div key={list.id}
+                             style={{backgroundColor: selected?.id === list.id ? "#FFCCAA" : "transparent"}}
+                             className={"lists-list-container"}>
+                            <Typography onClick={handleSetSelected.bind(this, list)}>{list.title}</Typography>
+                        </div>
+                    )}
+                </div>
+                <List list={selected}/>
             </div>
-            {isNewListOpen ? <NewList catId={category.id} userId={category.userId} config={props.config}/> : ""}
+            {isNewListOpen ? <NewList catId={category.id} userId={category.userId} config={props.config}
+                                      closeNewList={closeNewList} handleSetUpdated={handleUpdate}/> : ""}
         </div>
     )
 }

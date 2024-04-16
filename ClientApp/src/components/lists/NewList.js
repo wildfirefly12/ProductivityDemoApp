@@ -21,6 +21,8 @@ const NewList = (props) => {
         axios.post("api/Lists/Create", list , props.config)
             .then(response => {
                 console.log(response);
+                props.closeNewList();
+                props.handleSetUpdated();
             }).catch(error => {
                 console.log(error);
         })
@@ -29,7 +31,7 @@ const NewList = (props) => {
     return (
         <div className={"new-note-container"}>
             <Close sx={{alignSelf: "flex-end", marginBottom: "5px"}}
-                   onClick={props.handleOpenNewNote.bind(this, false)}/>
+                   onClick={props.closeNewList}/>
             <TextField sx={{margin: "10px"}} size={"small"} variant={"outlined"} label={"Title"}
                        onChange={handleSetTitle}/>
             {/*<div className={"tasks-tags-autocomplete-container"}>

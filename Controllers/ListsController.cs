@@ -19,15 +19,15 @@ public class ListsController : BaseApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] ListDto note)
+    public async Task<IActionResult> Create([FromBody] ListDto list)
     {
-        return HandleResult(await Mediator.Send(new Create.Command { List = note }));
+        return HandleResult(await Mediator.Send(new Create.Command { List = list }));
     }
 
     [HttpPost]
-    public async Task<IActionResult> Edit([FromBody] ListDto note)
+    public async Task<IActionResult> Edit([FromBody] ListDto list)
     {
-        return HandleResult(await Mediator.Send(new Edit.Command { List = note }));
+        return HandleResult(await Mediator.Send(new Edit.Command { List = list }));
     }
 
     [HttpPost]

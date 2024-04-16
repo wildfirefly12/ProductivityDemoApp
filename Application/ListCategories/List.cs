@@ -1,20 +1,16 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
+﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Productivity.Core;
 using Productivity.Data;
 using Productivity.Models;
 
-namespace Productivity.Application.NoteCategories {
+namespace Productivity.Application.ListCategories {
     public class List {
-        public class Query: IRequest<Result<List<NoteCategory>>> {
+        public class Query: IRequest<Result<List<ListCategory>>> {
             public string UserId { get; set; }
         }
 
-        public class Handler : IRequestHandler<Query, Result<List<NoteCategory>>> {
+        public class Handler : IRequestHandler<Query, Result<List<ListCategory>>> {
 
             private readonly ApplicationDbContext _context;
 
@@ -23,9 +19,9 @@ namespace Productivity.Application.NoteCategories {
                 _context = context;
             }
 
-            public async Task<Result<List<NoteCategory>>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<Result<List<ListCategory>>> Handle(Query request, CancellationToken cancellationToken)
             {
-                return Result<List<NoteCategory>>.Success(await _context.NoteCategories
+                return Result<List<ListCategory>>.Success(await _context.ListCategories
                     .Where(c => c.UserId == request.UserId).ToListAsync());
             }
         }
